@@ -3,6 +3,11 @@
 
 - name: enable firewall
   firewalld:
-    service: nfs
+    service: {{ item }}
     permanent: yes
     state: enabled
+    immediate: true
+  with_items:
+    - nfs
+    - mountd
+    - rpc-bind
