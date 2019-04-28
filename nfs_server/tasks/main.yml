@@ -1,7 +1,14 @@
 ---
 # tasks file for nfs_server
 
-- name: install nfs package
-  yum:
-    name: nfs-utils
-    state: present
+- name: 1
+  import_tasks: install_package.yml 
+
+- name: 2
+  import_tasks: firewall_rules.yml
+
+- name: 3
+  import_tasks: configure_service.yml
+
+- name: 4
+  import_tasks: enable_service.yml
