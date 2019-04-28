@@ -3,5 +3,10 @@
 
 - name: install nfs package
   yum:
-    name: nfs-utils
+    name: {{ item }}
     state: present
+  with_items:
+    - bind
+    - bind-utils
+  tags:
+    - packages
