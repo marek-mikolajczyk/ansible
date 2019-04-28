@@ -3,7 +3,7 @@
 
 - name: enable firewall
   firewalld:
-    service: {{ item }}
+    service: "{{ item }}"
     permanent: yes
     state: enabled
     immediate: true

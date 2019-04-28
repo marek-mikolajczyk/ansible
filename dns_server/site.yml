@@ -1,0 +1,4 @@
+- hosts: mgmt.marekexample.com
+  tasks:
+    - import_role:
+        name: dns_server
