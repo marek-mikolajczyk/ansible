@@ -1,0 +1,8 @@
+---
+# tasks file for nfs_server
+
+- name: enable firewall
+  firewalld:
+    service: nfs
+    permanent: yes
+    state: enabled
