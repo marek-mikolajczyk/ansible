@@ -1,0 +1,16 @@
+$TTL 86400
+@   IN  SOA     masterdns.marekexample.local. root.marekexample.local. (
+        2011071001  ;Serial
+        3600        ;Refresh
+        1800        ;Retry
+        604800      ;Expire
+        86400       ;Minimum TTL
+)
+@       IN  NS          masterdns.marekexample.local.
+@       IN  NS          secondarydns.marekexample.local.
+@       IN  A           192.168.0.101
+@       IN  A           192.168.0.102
+@       IN  A           192.168.0.103
+mgmt	IN  A   192.168.0.10
+green	IN  A   192.168.0.20
+engine	IN  A   192.168.0.21
