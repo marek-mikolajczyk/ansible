@@ -7,7 +7,9 @@ $TTL 86400
         86400       ;Minimum TTL
 )
 @       IN  NS          mgmt.marekexample.com.
+@       IN  NS          secondarydns.marekexample.com.
+@       IN  PTR         marekexample.com.
+10     IN  PTR         mgmt.marekexample.com
+20     IN  PTR         green.marekexample.com.
+21     IN  PTR         engine.marekexample.com.
 
-mgmt	IN  A   192.168.0.10
-green	IN  A   192.168.0.20
-engine	IN  A   192.168.0.21
