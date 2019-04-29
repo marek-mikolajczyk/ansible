@@ -15,20 +15,21 @@
 #    state: present
 
 - name: adjust non-managed nic
+  lineinfile:
     path: /etc/sysconfig/network-scripts/ifcfg-ovirtmgmt
     regexp: '^DNS[12]='
     state: absent
 
 - name: adjust non-managed nic 2
+  blockinfile:
     path: /etc/sysconfig/network-scripts/ifcfg-ovirtmgmt
-    line: "{{ item }}"
+    block: |
+      DNS1=192.168.0.10
+      DNS2=192.168.0.1
     state: present 
-  with_items:
-    - DNS1=192.168.0.10
-    - DNS2=192.168.0.1
 
 - name: restart network
   systemd:
-    name: NetworkManager
+    name: network
     state: restarted
 
