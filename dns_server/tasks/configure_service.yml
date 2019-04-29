@@ -49,7 +49,7 @@
 
 - name: restart network
   systemd:
-    name: network
+    name: NetworkManager
     state: restarted
 
 - name: restart service
