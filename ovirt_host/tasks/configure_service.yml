@@ -3,13 +3,8 @@
 
 - name: copy answer file
   copy:
-    src: files/
+    src: files/answers.txt
+    dest: /root/ovirt_answers.txt
 
 - name: define config
-  shell: engine-setup
-    src: files/named.conf
-    dest: /etc/named.conf
-    owner: root
-    group: named
-    mode: 0640
-
+  shell: engine-setup --config=/root/ovirt_answers.txt
