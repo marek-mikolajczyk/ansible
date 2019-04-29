@@ -45,7 +45,6 @@
     conn_name: enp0s3
     type: ethernet
     dns4: "192.168.0.10 192.168.0.1"
-#    dns4_search: "marekexample.com"
     state: present
 
 - name: restart network
