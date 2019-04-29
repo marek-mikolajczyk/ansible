@@ -8,6 +8,6 @@
   with_items:
     - bind
     - bind-utils
-    - libnm-glib-dev
+    - NetworkManager-glib
   tags:
     - packages
