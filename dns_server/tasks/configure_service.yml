@@ -12,10 +12,21 @@
     owner: root
     group: named
 
-- name: create exports definition 1
-  lineinfile:
-    path: /etc/exports
-    line: '/nfs1 192.168.0.0/24(rw,sync,no_root_squash)'
+- name: define forward zone
+  copy:
+    src: files/forward.marekexample
+    dest: /var/named/.
+    owner: root
+    group: named
+    mode: 0640
+
+- name: define reverse zone
+  copy:
+    src: files/reverse.marekexample
+    dest: /var/named/.
+    owner: root
+    group: named
+    mode: 0640
 
 - name: selinux
   shell: restorecon -rv /var/named
