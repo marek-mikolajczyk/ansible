@@ -4,7 +4,15 @@
 - name: define config
   copy:
     src: files/named.conf
-    dest: /etc/named/.
+    dest: /etc/named.conf
+    owner: root
+    group: named
+    mode: 0640
+
+- name: define config
+  copy:
+    src: files/marekexample.zone
+    dest: /etc/marekexample.com
     owner: root
     group: named
     mode: 0640
