@@ -1,5 +1,0 @@
----
-# tasks file for ovirt
-
-- name: check uptime
-  shell: uptime

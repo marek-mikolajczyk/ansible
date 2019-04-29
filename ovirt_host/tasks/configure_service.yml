@@ -1,0 +1,15 @@
+---
+# tasks file for nfs_server
+
+- name: copy answer file
+  copy:
+    src: files/
+
+- name: define config
+  shell: engine-setup
+    src: files/named.conf
+    dest: /etc/named.conf
+    owner: root
+    group: named
+    mode: 0640
+
