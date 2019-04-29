@@ -1,16 +1,13 @@
 ---
 # tasks file for nfs_server
 
-- name: configure service
-  file:
-    path: /var/named
-    group: named
-
-- name: configure service
-  file:
-    path: /etc/named.conf
+- name: define config
+  copy:
+    src: files/named.conf
+    dest: /etc/named/.
     owner: root
     group: named
+    mode: 0640
 
 - name: define forward zone
   copy:
