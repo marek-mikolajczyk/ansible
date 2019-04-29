@@ -12,7 +12,7 @@
 - name: define config
   copy:
     src: files/marekexample.zone
-    dest: /etc/marekexample.com
+    dest: /etc/named.marekexample.zone
     owner: root
     group: named
     mode: 0640
@@ -52,3 +52,9 @@
   systemd:
     name: network
     state: restarted
+
+- name: restart service
+  systemd:
+    name: named
+    state: restarted
+

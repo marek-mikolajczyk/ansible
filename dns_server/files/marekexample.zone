@@ -3,7 +3,7 @@ type master;
 file "forward.marekexample";
 allow-update { none; };
 };
-zone "1.168.192.in-addr.arpa" IN {
+zone "0.168.192.in-addr.arpa" IN {
 type master;
 file "reverse.marekexample";
 allow-update { none; };
