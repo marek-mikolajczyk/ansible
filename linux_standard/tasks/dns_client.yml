@@ -1,0 +1,21 @@
+- name: install package
+  yum:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - NetworkManager-glib
+  tags:
+    - packages
+
+- name: adjust resolv.conf
+  nmcli:
+    conn_name: ovirtmgmt
+    type: ethernet
+    dns4: "192.168.0.10 192.168.0.1"
+    state: present
+
+- name: restart network
+  systemd:
+    name: NetworkManager
+    state: restarted
+
