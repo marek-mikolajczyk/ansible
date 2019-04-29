@@ -10,7 +10,7 @@
 - name: adjust resolv.conf
   nmcli:
     conn_name: ovirtmgmt
-    type: ethernet
+#    type: ethernet
     dns4: "192.168.0.10 192.168.0.1"
     state: present
 
