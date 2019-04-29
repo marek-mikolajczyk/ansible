@@ -7,12 +7,25 @@
   tags:
     - packages
 
-- name: adjust resolv.conf
-  nmcli:
-    conn_name: ovirtmgmt
+#- name: adjust resolv.conf
+#  nmcli:
+#    conn_name: ovirtmgmt
 #    type: ethernet
-    dns4: "192.168.0.10 192.168.0.1"
-    state: present
+#    dns4: "192.168.0.10 192.168.0.1"
+#    state: present
+
+- name: adjust non-managed nic
+    path: /etc/sysconfig/network-scripts/ifcfg-ovirtmgmt
+    regexp: '^DNS[12]='
+    state: absent
+
+- name: adjust non-managed nic 2
+    path: /etc/sysconfig/network-scripts/ifcfg-ovirtmgmt
+    line: "{{ item }}"
+    state: present 
+  with_items:
+    - DNS1=192.168.0.10
+    - DNS2=192.168.0.1
 
 - name: restart network
   systemd:
