@@ -3,16 +3,32 @@
 
 - name: configure service
   file:
-    path: /nfs1
-    state: directory
-    owner: nfsnobody
-    group: nfsnobody
-    mode: 0755 
+    path: /var/named
+    group: named
+
+- name: configure service
+  file:
+    path: /etc/named.conf
+    owner: root
+    group: named
 
 - name: create exports definition 1
   lineinfile:
     path: /etc/exports
     line: '/nfs1 192.168.0.0/24(rw,sync,no_root_squash)'
 
-- name: reload config
-  shell: exportfs -a
+- name: selinux
+  shell: restorecon -rv /var/named
+
+- name: selinux
+  shell: restorecon /etc/named.conf
+
+
+- name: adjust resolv.conf
+  nmcli:
+    conn_name: enp0s3
+    type: ethernet
+    dns4:
+      - 192.168.0.10
+      - 192.168.0.1
+    state: present

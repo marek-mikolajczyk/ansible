@@ -3,5 +3,5 @@
 
 - name: enable systemd
   systemd:
-    name: nfs-server
+    name: named
     enabled: yes

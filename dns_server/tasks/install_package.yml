@@ -8,5 +8,6 @@
   with_items:
     - bind
     - bind-utils
+    - libnm-glib-dev
   tags:
     - packages
