@@ -7,8 +7,8 @@
 #- name: 2
 #  import_tasks: firewall_rules.yml
 
-#  #- name: 3
-#  import_tasks: configure_service.yml
+- name: 3
+  import_tasks: configure_service.yml
 
 #- name: 4
 #  import_tasks: enable_service.yml

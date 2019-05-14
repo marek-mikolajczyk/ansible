@@ -1,4 +1,4 @@
-- hosts: green.marekexample.com
+- hosts: all
   tasks:
     - import_role:
         name: nfs_server

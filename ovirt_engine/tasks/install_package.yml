@@ -1,11 +1,12 @@
 ---
 # tasks file for nfs_server
 
-- name: install ovirt 41
+- name: install ovirt engine package
   yum:
     name: "{{ item }}"
     state: present
+    disable_gpg_check: yes
   with_items:
-    - https://resources.ovirt.org/pub/yum-repo/ovirt-release42.rpm
+    - ovirt-engine
   tags:
     - packages

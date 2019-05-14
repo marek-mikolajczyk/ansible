@@ -3,11 +3,10 @@
 
 - name: enable firewall
   firewalld:
-    service: "{{ item }}"
+    port: "{{ item }}"
     permanent: yes
     state: enabled
     immediate: true
   with_items:
-    - nfs
-    - mountd
-    - rpc-bind
+    - 53/udp
+    - 53/tcp

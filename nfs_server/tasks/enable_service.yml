@@ -3,5 +3,11 @@
 
 - name: enable systemd
   systemd:
-    name: nfs-server
+    name: "{{ item }}" 
+    state: started
     enabled: yes
+  with_items:
+    - nfs-server
+    - nfs-lock
+    - nfs-idmap
+    - rpcbind
