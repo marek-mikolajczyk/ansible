@@ -1,7 +1,7 @@
 ---
 # tasks file for nfs_server
 
-- name: install ovirt 41
+- name: install ovirt 42
   yum:
     name: "{{ item }}"
     state: present
