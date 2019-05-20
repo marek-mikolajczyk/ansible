@@ -1,0 +1,12 @@
+---
+# tasks file for nfs_server
+
+- name: install packages
+  yum:
+    name: "{{ item }}"
+    state: present
+    disable_gpg_check: yes
+  with_items:
+    - mkisofs
+  tags:
+    - packages

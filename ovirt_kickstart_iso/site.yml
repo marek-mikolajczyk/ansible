@@ -1,0 +1,5 @@
+- hosts: localhost
+  become: true
+  tasks:
+    - import_role:
+        name: ovirt_kickstart_iso

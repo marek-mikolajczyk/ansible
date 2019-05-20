@@ -1,0 +1,49 @@
+---
+# tasks file for nfs_server
+
+- name: create dirs
+  file:
+    path: "{{ item }}"
+    state: directory
+    mode: '0755'
+  with_items:
+    - /tmp/download
+    - /tmp/unpacked  
+    - /tmp/upload
+
+- name: Download minimal iso
+  get_url:
+    url: http://192.168.0.212/iso/c7_1804.iso
+    dest: /tmp/download
+    mode: '0440'
+
+- name: mount iso
+  mount:
+    path: /tmp/mounted
+    src: /tmp/download/c7_1804.iso
+    fstype: iso9660
+    opts: ro,noauto
+    state: present
+
+    #- name: Extract iso on WSL
+    #  iso_extract:
+    #    image: /tmp/download/c7_1804.iso
+    #    dest: /tmp/unpacked
+    #
+    #
+- name: extract iso
+  shell: "7z x /tmp/download/c7_1804.iso -o/tmp/unpacked"
+
+- name: send isolinux template
+  template:
+    src: isolinux.cfg
+    dest: /tmp/unpacked/isolinux/isolinux.cfg
+    owner: root
+    group: root
+    mode: '0644'
+
+- name: generate new iso
+  shell: cd /tmp/unpacked && mkisofs -o /tmp/upload/ovirt.iso -b isolinux/isolinux.bin -c isolinux/boot.cat -no-emul-boot -boot-load-size 4 -boot-info-table -J -l -r -T -v -V "ovirt" .
+
+- name: upload iso to web server
+
