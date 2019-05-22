@@ -1,0 +1,10 @@
+---
+# tasks file for nfs_server
+
+- name: enable service
+  systemd:
+    name: "{{ item }}" 
+    state: restarted
+    enabled: yes
+  with_items:
+    - chronyd

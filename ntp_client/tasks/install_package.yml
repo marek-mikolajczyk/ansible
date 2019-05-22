@@ -1,0 +1,7 @@
+---
+# tasks file for nfs_server
+
+- name: install nfs package
+  yum:
+    name: chrony
+    state: present
