@@ -1,0 +1,13 @@
+---
+# tasks file for nfs_server
+
+- name: install ovirt engine package
+  yum:
+    name: "{{ item }}"
+    state: present
+    disable_gpg_check: yes
+  with_items:
+    - ovirt-engine-sdk-python 
+    - python
+  tags:
+    - packages

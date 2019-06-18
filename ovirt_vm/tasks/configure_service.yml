@@ -1,0 +1,10 @@
+---
+# tasks file for nfs_server
+
+- name: copy answer file
+  copy:
+    src: files/answers.txt
+    dest: /root/ovirt_answers.txt
+
+#- name: define config
+#  shell: engine-setup --config=/root/ovirt_answers.txt
