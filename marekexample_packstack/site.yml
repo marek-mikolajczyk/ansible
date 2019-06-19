@@ -1,10 +1,11 @@
 - hosts: all
-  become: true
-  become_user: root
   gather_facts: false
   tasks:
     - import_role:
-        name: linux_standard
+        name: marekexample_packstack
 
     - import_role:
         name: ntp_client
+
+    - import_role:
+        name: dns_client

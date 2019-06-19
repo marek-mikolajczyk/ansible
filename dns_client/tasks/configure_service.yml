@@ -1,0 +1,39 @@
+---
+# tasks file for nfs_server
+
+- name: disable dns update from eth
+  lineinfile:
+    path: /etc/sysconfig/network-scripts/ifcfg-eth0
+    regexp: '^PEERDNS='
+    line: PEERDNS=no
+
+- name: disable dns update from eth 2
+  lineinfile:
+    path: /etc/sysconfig/network-scripts/ifcfg-eth0
+    regexp: '^DNS*'
+    state: absent
+
+- name: clean current file
+  file:
+    path: /etc/resolv.conf
+    state: absent
+
+
+- name: clean current file 2
+  file:
+    path: /etc/resolv.conf
+    state: touch
+    owner: root
+    mode: 0644
+
+
+- name: edit resolv.conf
+  blockinfile:
+    path: /etc/resolv.conf
+    marker: "# {mark} ANSIBLE MANAGED BLOCK "
+    block: |
+      search marekexample.com
+      192.168.0.212
+      192.168.0.1
+
+    

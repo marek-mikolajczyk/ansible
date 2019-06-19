@@ -1,0 +1,8 @@
+---
+# tasks file for nfs_server
+
+- name: disable cloud init
+  file:
+    path: /etc/cloud/cloud-init.disabled
+    state: touch
+

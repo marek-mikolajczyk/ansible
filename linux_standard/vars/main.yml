@@ -1,2 +1,4 @@
 ---
 # vars file for linux_standard
+vm_host: packstack.marekexample.com
+ip_addr: 192.168.0.21

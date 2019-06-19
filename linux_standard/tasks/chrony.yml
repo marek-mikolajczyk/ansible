@@ -1,4 +1,0 @@
-- name: install chrony package
-  yum:
-    name: chrony
-    state: present

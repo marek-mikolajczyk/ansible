@@ -1,0 +1,53 @@
+---
+- name: include ovirt password
+  no_log: true
+  include_vars: ovirt_password.yml
+- name: auth in engine
+  block:
+       # Create a vault with `ovirt_password` variable which store your
+       # oVirt/RHV user's password, and include that yaml file with variable:
+       #- include_vars: ovirt_password.yml
+
+       - name: Obtain SSO token with using username/password credentials
+         ovirt_auth:
+           url: https://engine.marekexample.com/ovirt-engine/api
+           username: admin@internal
+#           ca_file: pki-resource.cer 
+           password: "{{ ovirt_password }}"
+
+       # Previous task generated I(ovirt_auth) fact, which you can later use
+       # in different modules as follows:
+
+       - name: Run VM with cloud init, with multiple network interfaces
+         ovirt_vms:
+           auth: "{{ ovirt_auth }}"
+           name: "{{ vm_name }}"
+           template: "{{ template }}"
+           cluster: Default
+           memory: 1GiB
+           state: present
+#           storage_domain: rhev_nfs1
+           high_availability: true
+           high_availability_priority: 50  # Available from Ansible 2.5
+           cloud_init_persist: yes
+           cloud_init:
+             nic_boot_protocol: dhcp
+             nic_name: eth0
+             nic_on_boot: true
+             host_name: dupa123
+             custom_script: |
+               write_files:
+                - content: |
+                    Hello, world!
+                  path: /tmp/greeting.txt
+                  permissions: '0644'
+             authorized_ssh_keys: "{{ lookup('file', 'sshkeys') }}"
+             user_name: root
+             root_password: 'haslo123'
+
+  always:
+      - name: Always revoke the SSO token
+        ovirt_auth:
+          state: absent
+          ovirt_auth: "{{ ovirt_auth }}"
+
