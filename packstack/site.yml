@@ -3,5 +3,12 @@
   become_user: root
   gather_facts: false
   tasks:
+
+    - import_role:
+        name: ovirt_vm
+
+    - import_role:
+        name: marekexample_packstack
+
     - import_role:
         name: packstack
