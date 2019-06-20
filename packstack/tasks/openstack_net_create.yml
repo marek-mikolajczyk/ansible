@@ -75,7 +75,7 @@
 - name: reboot
   shell: systemctl reboot
 
-
+  # doesn't continue on reboot
 - name: install openstacksdk
   yum:
     name: "{{ item }}"
