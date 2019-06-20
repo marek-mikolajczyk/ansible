@@ -6,8 +6,7 @@ A brief description of the role goes here.
 Syntax
 ------------
 
-ansible-playbook -i inventory/inv.inv ovirt_vm/site.yml  -b -k  -e "template=v1809_template" -e "vm_name=v1809_template_2"
-
+ansible-playbook -i inventory/inv.inv ovirt_vm/site.yml  -b -k  -e "template=v1809_template" -e "vm_name=packstack.marekexample.com" --vault-password-file=/root/vault.pass
 
 License
 -------

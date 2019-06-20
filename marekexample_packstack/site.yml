@@ -5,6 +5,9 @@
         name: marekexample_packstack
 
     - import_role:
+        name: cloudinit_disable
+
+    - import_role:
         name: ntp_client
 
     - import_role:

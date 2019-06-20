@@ -24,7 +24,7 @@
            name: "{{ vm_name }}"
            template: "{{ template }}"
            cluster: Default
-           memory: 1GiB
+           memory: 20GiB
            state: present
 #           storage_domain: rhev_nfs1
            high_availability: true
@@ -34,7 +34,7 @@
              nic_boot_protocol: dhcp
              nic_name: eth0
              nic_on_boot: true
-             host_name: dupa123
+             host_name: "{{ vm_name }}"
              custom_script: |
                write_files:
                 - content: |
