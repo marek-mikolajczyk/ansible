@@ -26,7 +26,7 @@
            cluster: Default
            memory: 20GiB
            cpu_cores: 4
-           state: present
+           state: running
 #           storage_domain: rhev_nfs1
            high_availability: true
            high_availability_priority: 50  # Available from Ansible 2.5

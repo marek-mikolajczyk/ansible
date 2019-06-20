@@ -1,4 +1,4 @@
-- hosts: all
+- hosts: green.marekexample.com
   become: true
   become_user: root
   gather_facts: false
@@ -6,6 +6,12 @@
 
     - import_role:
         name: ovirt_vm
+
+- hosts: packstack.marekexample.com
+  become: true
+  become_user: root
+  gather_facts: false
+  tasks:
 
     - import_role:
         name: marekexample_packstack
