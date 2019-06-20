@@ -1,0 +1,12 @@
+---
+#- name: prerequis
+#  import_tasks: prerequis.yml
+
+#- name: install service
+#  import_tasks: configure_service.yml
+
+
+
+
+- name: install service
+  import_tasks: openstack_net_create.yml

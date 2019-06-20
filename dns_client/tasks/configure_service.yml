@@ -33,7 +33,7 @@
     marker: "# {mark} ANSIBLE MANAGED BLOCK "
     block: |
       search marekexample.com
-      192.168.0.212
-      192.168.0.1
+      nameserver 192.168.0.212
+      nameserver 192.168.0.1
 
     

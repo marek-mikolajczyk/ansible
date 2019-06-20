@@ -1,0 +1,32 @@
+---
+- name: stop services
+  systemd:
+    name: "{{ item }}"
+    state: stopped
+    masked: yes
+  with_items:
+    - firewalld
+    - NetworkManager
+  ignore_errors: yes
+
+- name: start network service
+  systemd:
+    state: started
+    enabled: yes
+    name: network
+
+- name: enable repo
+  yum:
+    name: centos-release-openstack-stein
+    state: present
+
+- name: update all packages
+  yum:
+    name: "*"
+    state: latest
+
+- name: install packstack
+  yum:
+    name: openstack-packstack
+    state: latest
+

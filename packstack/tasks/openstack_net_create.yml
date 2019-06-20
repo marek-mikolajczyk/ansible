@@ -1,0 +1,32 @@
+# prerequis
+# ## create /etc/openstack/clouds.yaml. define admin cloud and variables from /root/keystonerc_admin:
+# project_name: OS_PROJECT_NAME=admin
+# username: OS_USERNAME (admin
+# password: OS_PASSWORD (aebf1e532bc147a2)
+# region_name RegionOne (fixed)
+# auth_url: OS_AUTH_URL but on url: http://192.168.122.10:35357/ and different port
+- name: install openstacksdk
+  yum:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - python2-shade
+    - python2-openstacksdk
+
+
+- name: Authenticate to the cloud and retrieve the service catalog
+  os_auth:
+    cloud: openstack
+
+- name: Show service catalog
+  debug:
+    var: service_catalog
+
+- name: show domains
+  debug:
+    var: openstack_domains
+
+#- name: show networks
+#  debug:
+#    var: openstack_networks
+

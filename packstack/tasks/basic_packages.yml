@@ -1,0 +1,9 @@
+- name: install basic packages
+  yum:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - wget
+    - net-tools
+  tags:
+    - packages
