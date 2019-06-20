@@ -25,12 +25,13 @@
            template: "{{ template }}"
            cluster: Default
            memory: 20GiB
+           memory_guaranteed: 16GiB
            cpu_cores: 4
            state: present
 #           storage_domain: rhev_nfs1
            high_availability: true
            high_availability_priority: 50  # Available from Ansible 2.5
-           cloud_init_persist: yes
+           cloud_init_persist: true
            cloud_init:
              nic_boot_protocol: static
              nic_name: eth0
@@ -51,19 +52,20 @@
              user_name: root
              root_password: 'haslo123'
 
-       - name: wait a little
-         pause:
-            seconds: 20
+             #- name: wait a little
+             # pause:
+             # seconds: 120
 
-       - name: start vm
-         ovirt_vms:
-            auth: "{{ ovirt_auth }}"
-            name: "{{ vm_name }}"
-            state: running
+             # - name: start vm
+             #ovirt_vms:
+             # auth: "{{ ovirt_auth }}"
+             # name: "{{ vm_name }}"
+             # state: running
+             # cloud_init_persist: true
 
        - name: wait vm to spin up
          pause:
-            seconds: 120
+            seconds: 240 
 
   always:
       - name: Always revoke the SSO token
