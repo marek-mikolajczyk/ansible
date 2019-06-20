@@ -32,9 +32,13 @@
            high_availability_priority: 50  # Available from Ansible 2.5
            cloud_init_persist: yes
            cloud_init:
-             nic_boot_protocol: dhcp
+             nic_boot_protocol: static
              nic_name: eth0
-             nic_ip_address: "{{ vm_ip }}"
+             nic_ip_address: 192.168.0.21
+             nic_netmask: 255.255.255.0
+             nic_gateway: 192.168.0.1
+             dns_servers: '192.168.0.212 192.168.0.1'
+             dns_search: 'marekexample.com'
              nic_on_boot: true
              host_name: "{{ vm_name }}"
              custom_script: |
@@ -46,6 +50,7 @@
              authorized_ssh_keys: "{{ lookup('file', 'sshkeys') }}"
              user_name: root
              root_password: 'haslo123'
+
 
   always:
       - name: Always revoke the SSO token

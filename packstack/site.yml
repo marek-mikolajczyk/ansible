@@ -1,6 +1,5 @@
 - hosts: green.marekexample.com
-  become: true
-  become_user: root
+  user: root
   gather_facts: false
   tasks:
 
@@ -8,8 +7,7 @@
         name: ovirt_vm
 
 - hosts: packstack.marekexample.com
-  become: true
-  become_user: root
+  user: root
   gather_facts: false
   tasks:
 
