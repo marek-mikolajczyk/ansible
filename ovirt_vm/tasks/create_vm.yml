@@ -34,6 +34,7 @@
            cloud_init:
              nic_boot_protocol: dhcp
              nic_name: eth0
+             nic_ip_address: "{{ vm_ip }}"
              nic_on_boot: true
              host_name: "{{ vm_name }}"
              custom_script: |
