@@ -1,0 +1,33 @@
+- hosts: green.marekexample.com
+  user: root
+  gather_facts: false
+  tasks:
+
+    - import_role:
+        name: ovirt_vm
+
+- hosts: packstack.marekexample.com
+  user: centos
+  gather_facts: false
+  tasks:
+
+    - import_role:
+        name: cloud_init_root_login
+
+- hosts: packstack.marekexample.com
+  user: centos
+  become: true
+  gather_facts: false
+  tasks:
+
+    - import_role:
+        name: marekexample_packstack
+
+- hosts: packstack.marekexample.com
+  user: centos
+  become: true
+  gather_facts: false
+  tasks:
+
+    - import_role:
+        name: packstack

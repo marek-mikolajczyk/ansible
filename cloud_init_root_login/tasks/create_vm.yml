@@ -23,58 +23,27 @@
            auth: "{{ ovirt_auth }}"
            name: "{{ vm_name }}"
            template: "{{ template }}"
-           clone: yes
            cluster: Default
-           memory: 16GiB
-           memory_guaranteed: 16GiB
-           cpu_cores: 4
+           memory: 1GiB
+           state: present
+#           storage_domain: rhev_nfs1
            high_availability: true
-           cloud_init_persist: true
+           high_availability_priority: 50  # Available from Ansible 2.5
+           cloud_init_persist: yes
            cloud_init:
+             nic_boot_protocol: dhcp
              nic_name: eth0
-             nic_boot_protocol: static
-             nic_ip_address: 192.168.0.21
-             nic_netmask: 255.255.255.0
-             nic_gateway: 192.168.0.1
              nic_on_boot: true
-             dns_servers: 192.168.0.212 192.168.0.1
-             dns_search: marekexample.com
+             host_name: dupa123
              custom_script: |
                write_files:
                 - content: |
-                  Hello, world!
-                  path: /etc/cloud/cloud-init.disabled
+                    Hello, world!
+                  path: /tmp/greeting.txt
                   permissions: '0644'
-                - content: |
-                    network: {config: disabled} 
-                  path: /etc/cloud/cloud.cfg.d/99-disable-network-config.cfg 
-                  permissions: '0700'
-             host_name: "{{ vm_name }}"
              authorized_ssh_keys: "{{ lookup('file', 'sshkeys') }}"
              user_name: root
-             root_password: haslo123
-           graphical_console: 
-             protocol:
-               - spice
-               - vnc
-           type: server
-           wait: true
-           operating_system: rhel_7x64
-           serial_console: true
-           cloud_init_nics:
-           - nic_name: eth0
-
-
-             #       - name: start vm
-             #ovirt_vms:
-             #auth: "{{ ovirt_auth }}"
-             #name: "{{ vm_name }}"
-             #state: running
-             #cloud_init_persist: true
-
-       - name: wait admin to manually start server (obirt bug)
-         pause:
-             seconds: 120 
+             root_password: 'haslo123'
 
   always:
       - name: Always revoke the SSO token

@@ -1,0 +1,12 @@
+---
+# tasks file for nfs_server
+
+- name: enable root login in ssh
+  lineinfile:
+    path: /etc/ssh/sshd_config
+    regexp: '^PasswordAuthentication'
+    line: PasswordAuthentication yes
+- name: restart sshd
+  systemd:
+    name: sshd
+    state: restarted

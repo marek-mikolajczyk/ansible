@@ -1,5 +1,5 @@
 ---
-# tasks file for nfs_server
+
 - name: set hostname
   hostname:
     name: packstack.marekexample.com

@@ -1,0 +1,7 @@
+- hosts: green.marekexample.com
+  gather_facts: false
+  user: centos
+  become: true
+  tasks:
+    - import_role:
+        name: cloud_init_root_login

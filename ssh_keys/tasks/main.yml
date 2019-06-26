@@ -1,0 +1,2 @@
+- name: configure service
+  import_tasks: configure_service.yml

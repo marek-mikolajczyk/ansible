@@ -1,8 +1,7 @@
 - hosts: packstack.marekexample.com
   gather_facts: false
-  user: root
-  become: yes
-  become_method: sudo 
+  user: centos
+  become: true
   tasks:
     - import_role:
         name: marekexample_packstack

@@ -4,6 +4,9 @@
   gather_facts: false
   tasks:
     - import_role:
+        name: ssh_keys
+
+    - import_role:
         name: linux_standard
 
     - import_role:

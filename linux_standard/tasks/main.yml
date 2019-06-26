@@ -1,6 +1,3 @@
 ---
 - name: 1
   import_tasks: basic_packages.yml
-
-- name: 2
-  import_tasks: chrony.yml

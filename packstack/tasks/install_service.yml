@@ -1,0 +1,48 @@
+#- name: copy template
+#  template:
+#     src: packstack-latest.j2
+#     dest: /root/packstack-latest
+
+#- name: install packstack
+#  shell: packstack --answer-file=/root/packstack-latest
+
+- name: install packstack
+  shell: "packstack --allinone --provision-demo=n --os-neutron-ovs-bridge-mappings=extnet:br-ex --os-neutron-ovs-bridge-interfaces=br-ex:{{ nic_second }} --os-neutron-ml2-type-drivers=vxlan,flat"
+
+- name: deploy br-ex
+  template:
+    src: br-ex.j2
+    dest: /etc/sysconfig/network-scripts/ifcfg-br-ex
+    backup: yes
+
+- name: deploy eth0
+  template:
+    src: eth0.j2
+    dest: "/etc/sysconfig/network-scripts/ifcfg-{{ nic_second }}"
+    backup: yes
+
+- name: reboot
+  shell: systemctl reboot
+
+- name: Reboot the server
+  tags: reboot
+  shell: "sleep 5 && reboot"
+  async: 1
+  poll: 0
+  # doesn't continue on reboot
+
+- name: Wait for the reboot and reconnect 
+  wait_for:
+     port: 22
+     search_regex: OpenSSH
+     delay: 10
+     timeout: 60
+     connection: local
+
+- name: install openstacksdk
+  yum:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - python2-shade
+    - python2-openstacksdk
