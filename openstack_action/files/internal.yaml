@@ -1,0 +1,9 @@
+  internal:
+    auth:
+      auth_url: http://192.168.0.21:5000
+      username: internal
+      project_name: internal
+      password: internal
+      user_domain_name: Default
+      project_domain_name: Default
+    region_name: RegionOne

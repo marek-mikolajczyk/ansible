@@ -1,0 +1,27 @@
+---
+#- name: launch an instance
+#  os_server:
+#      state: present
+#      cloud: internal
+#      name: "{{ instance_name }}"
+#      image: 46bd0c5d-835c-493f-bd18-b711397bee04
+#      key_name: ubuntu_root
+#      timeout: 200
+#      flavor: m1.tiny
+#      network: external2-shared
+
+
+- name: get ip of new instance
+  os_server_facts:
+    cloud: internal
+    server: "{{ instance_name }}"
+  register:
+    output
+
+    #- name: content of output
+    #  debug:
+    #    var: output
+
+- name: output 'output.ansible_facts.openstack_servers[0].interface_ip'
+  debug:
+      msg: "new instance has IP - {{ output.ansible_facts.openstack_servers[0].interface_ip }}"
