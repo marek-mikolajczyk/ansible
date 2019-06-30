@@ -1,0 +1,6 @@
+--2019-06-18 09:50:08--  https://engine.marekexample.com/ovirt-engine/services/pki-resource?resource=ca-certificate
+Resolving engine.marekexample.com (engine.marekexample.com)... 192.168.0.20
+Connecting to engine.marekexample.com (engine.marekexample.com)|192.168.0.20|:443... connected.
+ERROR: cannot verify engine.marekexample.com's certificate, issued by ‘CN=engine.marekexample.com.86414,O=marekexample.com,C=US’:
+  Self-signed certificate encountered.
+To connect to engine.marekexample.com insecurely, use `--no-check-certificate'.

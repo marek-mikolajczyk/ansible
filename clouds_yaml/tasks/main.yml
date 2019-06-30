@@ -1,0 +1,41 @@
+---
+- name: create cloud directory in user's path 
+  file:
+    path: ~/.config/openstack
+    state: directory
+
+- name: create clouds.yaml
+  file:
+    path: "~/.config/openstack/clouds.yaml"
+    state: touch
+
+- name: deploy config file
+  lineinfile:
+    path: ~/.config/openstack/clouds.yaml
+    insertbefore: BOF
+    line: 'clouds:'
+
+- name: define clouds
+  blockinfile:
+    path: ~/.config/openstack/clouds.yaml
+    #    block: "{{ lookup('file', '/ssh_config') }}"
+    marker: "# {mark} internal ANSIBLE MANAGED BLOCK"
+    block: |
+      {{ item }}
+  with_items:  
+      - "{{lookup('file', 'files/internal.yaml') }}"
+##- name: 1
+##  import_tasks: install_package.yml 
+
+#- name: 2
+#  import_tasks: firewall_rules.yml
+
+#- name: 3
+#  import_tasks: configure_service.yml
+
+#- name: 4
+#  import_tasks: enable_service.yml
+
+
+  #- name: 6
+  #  import_tasks: start_vm.yml
