@@ -1,7 +1,0 @@
----
-# tasks file for nfs_server
-
-- name: enable systemd
-  systemd:
-    name: named
-    enabled: yes
