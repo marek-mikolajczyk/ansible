@@ -1,6 +1,6 @@
 ---
 # vars file for linux_standard
-vm_host: redpackstack.marekexample.com
-ip_addr: 192.168.0.23
-nic_first: eno1
-nic_second: eno2
+vm_host: packstack.marekexample.com
+ip_addr: 192.168.0.21
+nic_first: eth0
+nic_second: eth1

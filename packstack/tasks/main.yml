@@ -1,6 +1,6 @@
 ---
-- name: prerequis
-  import_tasks: prerequis.yml
+#- name: prerequis
+#  import_tasks: prerequis.yml
 
   #- name: reboot
   #  import_tasks: reboot.yml

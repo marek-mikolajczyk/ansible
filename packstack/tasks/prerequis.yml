@@ -1,4 +1,17 @@
 ---
+- name: add nm_controlled=no
+  lineinfile:
+    path: "/etc/sysconfig/network-scripts/ifcfg-{{ nic_first }}"
+    regexp: '^NM_CONTROL*'
+    line: 'NM_CONTROLLED=no' 
+
+
+- name: start network service
+  systemd:
+    state: started
+    enabled: yes
+    name: network
+
 - name: stop services
   systemd:
     name: "{{ item }}"
@@ -8,12 +21,6 @@
     - firewalld
     - NetworkManager
   ignore_errors: yes
-
-- name: start network service
-  systemd:
-    state: started
-    enabled: yes
-    name: network
 
 - name: enable repo
   yum:

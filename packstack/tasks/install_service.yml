@@ -21,23 +21,23 @@
     dest: "/etc/sysconfig/network-scripts/ifcfg-{{ nic_second }}"
     backup: yes
 
-- name: reboot
-  shell: systemctl reboot
+    #- name: reboot
+    #  shell: systemctl reboot
 
-- name: Reboot the server
-  tags: reboot
-  shell: "sleep 5 && reboot"
-  async: 1
-  poll: 0
+    #- name: Reboot the server
+    #  tags: reboot
+    #  shell: "sleep 5 && reboot"
+    #  async: 1
+    #  poll: 0
   # doesn't continue on reboot
 
-- name: Wait for the reboot and reconnect 
-  wait_for:
-     port: 22
-     search_regex: OpenSSH
-     delay: 10
-     timeout: 60
-     connection: local
+    #- name: Wait for the reboot and reconnect 
+    #  wait_for:
+    #     port: 22
+    #     search_regex: OpenSSH
+    #     delay: 10
+    #     timeout: 60
+    #     connection: local
 
 - name: install openstacksdk
   yum:
