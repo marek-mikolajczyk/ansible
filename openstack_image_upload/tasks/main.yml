@@ -1,0 +1,13 @@
+---
+- name: upload image
+  os_image:
+    auth:
+    cloud: internal
+    name: centos_1905
+    container_format: bare
+    disk_format: qcow2
+    state: present
+    filename: "{{ download_dir }}/{{ download_name }}"
+    properties:
+      cpu_arch: x86_64
+      distro: centos

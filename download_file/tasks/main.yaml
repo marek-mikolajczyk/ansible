@@ -1,0 +1,16 @@
+---
+- name: create download dir
+  file:
+      path: "{{ download_dir }}"
+      state: directory
+
+- name: download localy image
+  get_url:
+      url: "{{ download_link }}"
+      dest: "{{ download_dir }}"
+  register: output
+
+
+- name: show output
+  debug: 
+    msg: "{{ output }}"

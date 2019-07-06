@@ -46,7 +46,7 @@
              host_name: "{{ vm_name }}"
              authorized_ssh_keys: "{{ lookup('file', 'sshkeys') }}"
              user_name: root
-             root_password:  "{{ rootpw }}"
+             root_password:  redhat01
            graphical_console: 
              protocol:
                - spice
