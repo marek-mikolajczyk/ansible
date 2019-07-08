@@ -1,0 +1,28 @@
+---
+# tasks file for docker_test_containers
+- name: deploy prakhar1989/static-site
+  docker_container:
+    name: statis-site
+    image: prakhar1989/static-site
+    state: started
+    ports:
+      - "0.0.0.0:8000:80/tcp"
+
+- name: deploy 
+  git:
+    repo: 'https://github.com/prakhar1989/docker-curriculum.git'
+    dest: "/root/docker-curriculum"
+
+
+- name: Build 
+  docker_image:
+    name: "prakhar1989/catnip"
+ 
+- name: deploy prakhar1989/catnip
+  docker_container:
+    name: catnip
+    image: "prakhar1989/catnip"
+    state: started
+    ports:
+      - "0.0.0.0:8001:5000/tcp"
+

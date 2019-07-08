@@ -1,0 +1,21 @@
+---
+- hosts: all
+  become: true
+  tasks:
+    - name: install docker-py
+      pip:
+        name: "{{ item.name }}"
+        version: "{{ item.version }}"
+        state: present
+      with_items:
+         - { name: docker-py, version: 1.10.6 }
+
+    - name: install git
+      yum:
+        name: git
+        state: present
+
+- hosts: all
+  tasks:
+    - import_role:
+        name: docker_containers_test
