@@ -25,3 +25,47 @@
     ports:
       - "0.0.0.0:8001:5000/tcp"
 
+### Foodtruck app with elastic serch
+- name: Create a network
+  docker_network:
+    name: foodtrucks-net
+
+
+- name: pull an image
+  docker_image:
+    name: 'docker.elastic.co/elasticsearch/elasticsearch:6.3.2'
+
+- name: deploy elasticsearch
+  docker_container:
+    name: es
+    image: 'docker.elastic.co/elasticsearch/elasticsearch:6.3.2'
+    state: started
+    ports:
+      - "0.0.0.0:8002:9200/tcp"
+      - "0.0.0.0:8003:9300/tcp"
+    env:
+      discovery.type: single-node
+    networks:
+     - name: foodtrucks-net
+
+       #- name: deploy 24
+       #  git:
+       #    repo: 'https://github.com/prakhar1989/FoodTrucks'
+       #    dest: "/root/foodtrucks"
+
+- name: Build 2
+  docker_image:
+    name: "prakhar1989/foodtrucks-web"
+    #path: "/root/foodtrucks"
+    path: "github.com/prakhar1989/FoodTrucks"
+
+
+- name: deploy foodtrucks-web
+  docker_container:
+    name: foodtrucks-web
+    image: 'prakhar1989/foodtrucks-web'
+    state: started
+    ports:
+      - "0.0.0.0:8004:5000/tcp"
+    networks:
+     - name: foodtrucks-net
