@@ -1,14 +1,51 @@
 ---
-# tasks file for nfs_server
+- name: delete any previous installations
+  yum:
+    name:
+      - docker-client 
+      - docker-client-latest 
+      - docker-common 
+      - docker-latest
+      - docker-latest-logrotate
+      - docker-logrotate
+      - docker-engine
+      - docker-ce
+      - docker-ce-cli
+      - containerd.io
+    state: absent
 
-- name: 1
-  import_tasks: install_package.yml 
+- name: install prerequis
+  yum:
+    name:
+      - yum-utils
+      - device-mapper-persistent-data
+      - lvm2
 
-#  #- name: 2
-#  import_tasks: firewall_rules.yml
+- name: add docker repo
+  yum_repository:
+    name: dockerCE
+    description: dockerCE
+    baseurl: https://download.docker.com/linux/centos/7/x86_64/stable/
 
-#- name: 3
-#  import_tasks: configure_service.yml
+- name: install docker packages
+  yum:
+    name:
+      - docker-ce
+      - docker-ce-cli
+      - containerd.io 
+    disable_gpg_check: yes
 
-- name: 4
-  import_tasks: enable_service.yml
+
+- name: start service
+  systemd:
+    name: docker
+    state: started
+    enabled: yes
+
+- name: test running container
+  shell: docker run hello-world
+  register: output
+
+- name: show msg
+  debug:
+   msg: "{{ output.stdout_lines }}"
