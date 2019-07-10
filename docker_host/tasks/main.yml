@@ -1,18 +1,18 @@
 ---
-- name: delete any previous installations
-  yum:
-    name:
-      - docker-client 
-      - docker-client-latest 
-      - docker-common 
-      - docker-latest
-      - docker-latest-logrotate
-      - docker-logrotate
-      - docker-engine
-      - docker-ce
-      - docker-ce-cli
-      - containerd.io
-    state: absent
+#- name: delete any previous installations
+#  yum:
+#    name:
+#      - docker-client 
+#      - docker-client-latest 
+#      - docker-common 
+#      - docker-latest
+#      - docker-latest-logrotate
+#      - docker-logrotate
+#      - docker-engine
+#      - docker-ce
+#      - docker-ce-cli
+#      - containerd.io
+#    state: absent
 
 - name: install prerequis
   yum:
@@ -20,12 +20,13 @@
       - yum-utils
       - device-mapper-persistent-data
       - lvm2
+    state: present
 
 - name: add docker repo
   yum_repository:
     name: dockerCE
     description: dockerCE
-    baseurl: https://download.docker.com/linux/centos/7/x86_64/stable/
+    baseurl: 'https://download.docker.com/linux/centos/7/x86_64/stable/'
 
 - name: install docker packages
   yum:
@@ -48,4 +49,9 @@
 
 - name: show msg
   debug:
-   msg: "{{ output.stdout_lines }}"
+    msg: "{{ output.stdout_lines }}"
+
+
+- name: install docker-compose
+  shell:  'curl -L "https://github.com/docker/compose/releases/download/1.24.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose && chmod +x /usr/local/bin/docker-compose'
+
