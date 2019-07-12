@@ -1,2 +1,9 @@
-green.marekexample.com ansible_host=192.168.0.11
-blue.marekexample.com ansible_host=192.168.0.12
+[ovirt]
+green.marekexample.com
+
+[packstack]
+packstack.marekexample.com
+redpackstack.marekexample.com
+
+[docker]
+docker.marekexample.com
