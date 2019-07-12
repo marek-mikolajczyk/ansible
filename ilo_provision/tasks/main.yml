@@ -1,0 +1,11 @@
+---
+# tasks file for ilo_provision
+- name: boot gen81
+  hpilo_boot:
+    host: "{{ ILO_ADDRESS }}"
+    login: "{{ ILO_LOGIN }}"
+    password: "{{ ILO_PASSWORD }}"
+    media: cdrom
+    image: "http://{{ ISO_PROVIDER }}/iso/{{ IMAGE }}"
+  when: cmdb_hwmodel.startswith('HP ')
+  delegate_to: localhost 

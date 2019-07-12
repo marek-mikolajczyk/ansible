@@ -1,0 +1,6 @@
+# A 2.4 syntax
+- hosts: all
+  tasks:
+    - import_role:
+        name: ilo_provision
+
