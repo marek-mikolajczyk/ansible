@@ -1,0 +1,146 @@
+---
+### add repository and install nagios, nagios-plugins, nrpe
+### copy extra plugins from local repo
+### copy preconfigured conf files (nagios,nrpe)
+### add firewall rule
+### services autostart and restart
+
+- hosts: gen82
+### disable gathering facts to speedup
+  gather_facts: False
+### future:  will put host from variable
+  tasks:
+
+
+  - name: add epel repository
+    yum_repository:
+      name: epel
+      description: epel repo
+      baseurl: http://mirror.karneval.cz/pub/linux/fedora/epel//7Server/x86_64/
+      gpgcheck: no
+      enabled: yes
+
+
+  - name: install nagios packages
+    yum: name=nagios name="nagios-plugins-*" name=nrpe state=present
+### future: will show output of result, not 'changed'
+
+
+  - name: generate nagios gui password
+    htpasswd:
+      path: /etc/nagios/passwd
+      name: nagiosadmin
+### future:  this will taken from vault
+### didn't work without ''
+      password: 'test123'
+
+
+# additional plugins
+# check_mem
+
+  - name: copy plugin check_mem
+    copy:
+      src: /synology/example/config/nagios/check_mem.sh
+      dest: /usr/lib64/nagios/plugins/check_mem.sh
+      # this will be with vms
+      #remote_src: yes
+      owner: root
+      group: nagios
+      mode: 1755
+      backup: yes
+
+
+  - name: correct synology permissions
+    file:
+      path: /usr/lib64/nagios/plugins/check_mem.sh
+      mode: 0775
+
+
+  - name: copy plugin check_rhel
+    copy:
+      src: /synology/example/config/nagios/check_rhel.sh
+      dest: /usr/lib64/nagios/plugins/check_rhel.sh
+      owner: root
+      group: nagios
+      mode: 1750
+      backup: yes
+
+
+  - name: correct synology permissions
+    file:
+      path: /usr/lib64/nagios/plugins/check_rhel.sh
+      mode: 1755
+
+
+  - name: copy commands.cfg
+    copy:
+      src: /synology/example/config/nagios/commands.cfg
+      dest: /etc/nagios/objects/commands.cfg
+      owner: root
+      group: nagios
+      mode: 0664
+      backup: yes
+
+
+# NRPE
+  - name: configure nrpe master
+    copy:
+      src: /synology/example/config/nagios/nrpe.cfg
+      dest: /etc/nagios/nrpe.cfg
+      backup: yes
+
+
+  - name: configure nrpe master
+    copy:
+      src: /synology/example/config/nagios/gen82_nrpe.cfg
+      dest: /etc/nrpe.d/gen82_nrpe.cfg
+      backup: yes
+
+  - name: nrpe firewall
+    iptables:
+      chain: INPUT
+      protocol: tcp
+      destination_port: 5666
+      jump: ACCEPT
+  - name: save firewall
+    command: iptables-save
+
+  - name: copy gen82.cfg
+    copy:
+      src: /synology/example/config/nagios/gen82.cfg
+      dest: /etc/nagios/objects/localhost.cfg
+      # this will be with vms
+      #remote_src: yes
+      owner: root
+      group: root
+      mode: 0664
+      backup: yes
+  - name: correct permissions after NAS
+    file:
+      path: /etc/nagios/objects/localhost.cfg
+### 664 didn't work good, 0664 ok
+      mode: 0664
+
+
+#############################################################
+# RESTART
+#############################################################
+
+
+  - name: enable and restart nrpe
+    systemd:
+      name: nrpe
+      enabled: yes
+      state: restarted
+
+  - name: enable and restart nagios
+    systemd:
+      name: nagios
+      enabled: yes
+      state: restarted
+
+  - name: enable and restart webserver
+    systemd:
+      name: httpd
+      enabled: yes
+      state: restarted

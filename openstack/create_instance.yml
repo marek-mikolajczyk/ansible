@@ -1,0 +1,18 @@
+- hosts: openstack.lab.com
+  gather_facts: False
+  tasks:
+
+  - name: install prerequis
+    yum: name=python2-shade.noarch state=present
+
+  - name: create instance
+    os_server:
+         state: present
+         cloud: devstack
+         name: vm2
+         image: a6ce6c5d-6d3e-4178-b786-c52e9de4604d
+         key_name: openstackkey
+         timeout: 200
+         flavor: f7a09cb4-61ae-4dcd-99cd-60f2d55bc45e
+         nics:
+           - net-name: network1

@@ -1,0 +1,42 @@
+- hosts: openstack.lab.com
+  gather_facts: False
+  tasks:
+
+  - name: install prerequis
+    yum: name=python2-shade.noarch state=present
+
+  - name: "Create network1"
+    os_network:
+      cloud: devstack
+      state: present
+      name: network1
+      external: false
+
+  - name: "Create subnet1"
+    os_subnet:
+      cloud: devstack
+      state: present
+      network_name: network1
+      name: net1subnet
+      cidr: 192.168.122.0/24
+#      dns_nameservers:
+#       - 8.8.8.7
+#       - 8.8.8.8
+#      host_routes:
+#      - destination: 0.0.0.0/0
+#         nexthop: 12.34.56.78
+#       - destination: 192.168.0.0/24
+#         nexthop: 192.168.0.1
+
+
+  - name: "Create router2"
+    os_router:
+      cloud: devstack
+      state: present
+      name: router2
+      network: public
+      external_fixed_ips:
+        - subnet: public_subnet
+          ip: 172.24.4.8
+      interfaces:
+        - net1subnet

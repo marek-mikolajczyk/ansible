@@ -1,0 +1,31 @@
+---
+- hosts: development:&box82
+  vars_files:
+  - vars/vars.yml
+  vars:
+    ismyenvprd: "no"
+
+  tasks: 
+  - name: install chrony on dev
+    template:
+      src: templates/conf_client.dev.j2
+      dest: /etc/hypervisor.info
+      owner: root
+      group: root
+      mode: '0600'
+
+- hosts: production:&box82
+  vars_files:
+  - vars/vars.yml
+  vars:
+    ismyenvprd: "yes"
+
+  tasks:
+  - name: install chrony on dev
+    template:
+      src: templates/conf_client.prd.j2
+      dest: /etc/hypervisor.info
+      owner: root
+      group: root
+      mode: '0600'
+

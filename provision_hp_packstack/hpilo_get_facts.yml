@@ -1,0 +1,20 @@
+---
+- hosts: localhost
+  include_vars:
+    dir: vars/credentials.yml
+  tasks:
+
+  #- name: install prerequis
+  #  apt:
+  #    name: "{{ item }}"
+  #    state: present
+  #  with_items:
+  #      - python-hpilo
+  #      - python-apt
+
+  - name: query ilo 
+    hpilo_facts:
+       host: 192.168.0.116
+       login: "{{ ilo_login }}"
+       password: "{{ ilo_password }}"
+    delegate_to: localhost

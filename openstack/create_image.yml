@@ -1,0 +1,20 @@
+- hosts: openstack.lab.com
+  gather_facts: False
+  tasks:
+
+  - name: install prerequis
+    yum: name=python2-openstacksdk state=present
+
+  - name: create cirros image 
+    os_image:
+        cloud: devstack
+        name: cirros
+        disk_format: qcow2
+        state: present
+        container_format: bare
+        filename: /git/openstack/cirros-0.4.0-x86_64-disk.img
+        kernel: cirros-vmlinuz
+        ramdisk: cirros-initrd
+        properties:
+          cpu_arch: x86_64
+        is_public: yes

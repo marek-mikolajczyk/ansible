@@ -1,0 +1,13 @@
+- hosts: openstack.lab.com
+  gather_facts: False
+  tasks:
+
+  - name: install prerequis
+    yum: name=python2-shade.noarch state=present
+
+  - name: create keypair
+    os_keypair:
+         state: present
+         cloud: devstack
+         name: openstackkey
+         public_key_file: /root/.ssh/id_rsa.pub

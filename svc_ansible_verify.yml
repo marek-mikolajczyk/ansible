@@ -1,0 +1,17 @@
+---
+- name: verify svc_ansible
+  hosts: all:&infra
+  become: true
+  tasks:
+
+  - name: check whoami
+    shell: whoami
+
+- name: verify svc_ansible as root
+  hosts: all:&infra
+  become: true
+  tasks:
+
+  - name: check whoami
+    shell: whoami
+

@@ -1,0 +1,15 @@
+- hosts: openstack.lab.com
+  tasks:
+
+  - name: install prerequis
+    yum: name=python2-shade.noarch state=present
+
+  - name: "Create 'tiny' flavor with 1024MB of RAM, 1 virtual CPU, and 10GB of local disk, and 10GB of ephemeral."
+    os_nova_flavor:
+      cloud: devstack
+      state: present
+      name: tiny
+      ram: 1024
+      vcpus: 1
+      disk: 4
+      ephemeral: 1

@@ -1,0 +1,20 @@
+##  now retrieve ip
+########################
+
+  - name: "retrieve MAC"
+    shell: >
+      virsh domiflist pies | grep virbr | awk '{print $5}'
+    register: mac
+
+  - name: "retrieve IP"
+    shell: >
+      ip n |  grep "{{ mac.stdout }}" | awk '{print $1}'
+    register: ip
+
+  - name: show MAC
+    debug: msg="new MAC is {{ mac.stdout }}"
+
+  - name: show IP
+    debug: msg="new IP is {{ ip.stdout }}"
+
+##### now add to /etc/hosts and to ansible config. inventory
