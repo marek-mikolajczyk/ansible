@@ -1,0 +1,15 @@
+- hosts: all
+  gather_facts: True
+  become: true
+  tasks:
+
+   - import_role:
+       name: ssh_keys
+
+
+   - import_role:
+       name: linux_standard
+
+   - import_role:
+       name: docker_host
+
