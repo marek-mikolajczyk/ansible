@@ -1,9 +1,26 @@
 ---
+## install python-docker-py
+- name: leave current swarm
+  shell: docker swarm leave --force
+
 - name: Init a new swarm with default parameters
   docker_swarm:
     state: present
   register: joinoutput
 
-- name: debug
+- name: show manager token
   debug:
-   msg: "{{ joinoutput }}"
+   msg: "Manager token is {{ joinoutput.swarm_facts.JoinTokens.Manager }}"
+
+- name: show worker token
+  debug:
+    msg: "Worker token is {{ joinoutput.swarm_facts.JoinTokens.Worker }}"
+
+
+
+#- name: Add nodes
+#  docker_swarm:
+#    state: join
+#    advertise_addr: 192.168.1.2
+#    join_token: SWMTKN-1--xxxxx
+#    remote_addrs: [ '192.168.1.1:2377' ]
