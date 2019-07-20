@@ -16,11 +16,11 @@
   debug:
     msg: "Worker token is {{ joinoutput.swarm_facts.JoinTokens.Worker }}"
 
+- name: Add nodes
+  docker_swarm:
+        state: join
+        advertise_addr: 192.168.0.29
+        join_token: "{{ joinoutput.swarm_facts.JoinTokens.Worker }}"
+        remote_addrs: "192.168.0.31:2377"
+  delegate_to: dockernode1.marekexample.com
 
-
-#- name: Add nodes
-#  docker_swarm:
-#    state: join
-#    advertise_addr: 192.168.1.2
-#    join_token: SWMTKN-1--xxxxx
-#    remote_addrs: [ '192.168.1.1:2377' ]

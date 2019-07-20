@@ -1,0 +1,7 @@
+---
+- name: Add nodes
+  docker_swarm:
+        state: join
+        advertise_addr: 192.168.0.31
+        join_token: "{{ joinoutput.swarm_facts.JoinTokens.Worker }}"
+        remote_addrs: "dockernode1.marekexample.com:2377"

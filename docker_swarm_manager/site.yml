@@ -20,5 +20,12 @@
   tasks:
 
    - import_role:
-       name: docker_swarm
+       name: docker_swarm_manager
 
+- hosts: dockernode1.marekexample.com
+  gather_facts: True
+  become: true
+  tasks:
+
+   - import_role:
+       name: docker_swarm_node
