@@ -20,6 +20,7 @@
       - yum-utils
       - device-mapper-persistent-data
       - lvm2
+      - epel-release
     state: present
 
 - name: add docker repo
@@ -34,7 +35,12 @@
       - docker-ce
       - docker-ce-cli
       - containerd.io 
+      - python2-pip
     disable_gpg_check: yes
+
+- name: install docker-py
+  pip:
+    name: docker-py
 
 
 - name: start service

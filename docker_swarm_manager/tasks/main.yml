@@ -7,20 +7,31 @@
   docker_swarm:
     state: present
   register: joinoutput
+  when: inventory_hostname in groups['manager']
+  delegate_to: dockermanager
 
 - name: show manager token
   debug:
    msg: "Manager token is {{ joinoutput.swarm_facts.JoinTokens.Manager }}"
+  delegate_to: dockermanager
 
 - name: show worker token
   debug:
     msg: "Worker token is {{ joinoutput.swarm_facts.JoinTokens.Worker }}"
+  delegate_to: dockermanager  
 
-- name: Add nodes
+- name: Add node 1
   docker_swarm:
         state: join
         advertise_addr: 192.168.0.29
         join_token: "{{ joinoutput.swarm_facts.JoinTokens.Worker }}"
-        remote_addrs: "192.168.0.31:2377"
-  delegate_to: dockernode1.marekexample.com
+        remote_addrs: [ '192.168.0.31:2377' ]
+  delegate_to: dockernode1
 
+- name: Add node 2
+  docker_swarm:
+        state: join
+        advertise_addr: 192.168.0.30
+        join_token: "{{ joinoutput.swarm_facts.JoinTokens.Worker }}"
+        remote_addrs: [ '192.168.0.31:2377' ]
+  delegate_to: dockernode2

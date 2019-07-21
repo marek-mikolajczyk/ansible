@@ -1,4 +1,0 @@
----
-# vars file for docker_swarm
-node1: dockernode1.marekexample.com
-node2: dockernode2.marekexample.com

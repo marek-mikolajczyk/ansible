@@ -1,6 +1,6 @@
 [manager]
-dockermanager.marekexample.com
+dockermanager
 
 [nodes]
-dockernode1.marekexample.com
-dockernode2.marekexample.com
+dockernode1
+dockernode2
