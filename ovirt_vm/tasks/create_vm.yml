@@ -12,7 +12,7 @@
            password: "{{ ovirt_password }}"
 
        - name: Run VM with cloud init, with multiple network interfaces
-         ovirt_vms:
+         ovirt_vm:
            auth: "{{ ovirt_auth }}"
            name: "{{ vm_name }}"
            template: "{{ template }}"

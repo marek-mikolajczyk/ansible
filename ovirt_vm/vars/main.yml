@@ -2,5 +2,5 @@ vm_name: dockermanager.marekexample.com
 mem_standard: 2
 cpu_cores: 1
 template: v1809_template
-ip_addr: 192.168.0.31
+ip_addr: 192.168.0.32
 rootpw: redhat01

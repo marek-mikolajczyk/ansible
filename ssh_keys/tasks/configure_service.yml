@@ -1,5 +1,7 @@
 ---
 - name: Set authorized key for user ubuntu copying it from current user
+  remote_user: centos
+  become: true
   authorized_key:
     user: root
     state: present
@@ -7,6 +9,8 @@
 
 
 - name: Set authorized key for user ubuntu copying it from current user
+  remote_user: centos
+  become: true
   authorized_key:
     user: root
     state: present

@@ -1,0 +1,6 @@
+[manager]
+dockermanager
+
+[nodes]
+dockernode1
+dockernode2

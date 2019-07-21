@@ -1,0 +1,6 @@
+---
+- name: add user
+  hosts: learnansible
+  tasks:
+    - name: 
+    = name: 
