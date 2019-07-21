@@ -1,0 +1,12 @@
+---
+- name: modify banner
+  hosts: learnansible
+  become: true
+  tasks:
+    - name: add lines
+      copy:
+        content: >
+          this is
+          new
+          banner
+        dest: /etc/motd
