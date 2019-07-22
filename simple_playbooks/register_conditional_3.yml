@@ -1,0 +1,50 @@
+---
+- name: registering example
+  gather_facts: True
+  hosts: learnansible
+  tasks:
+
+    - name: show OS version
+      command: file /etc/redhat-release
+      register: result
+      ignore_errors: True
+
+    - name: show registered var
+      debug:
+         msg: "{{ result }}"
+
+    - name: check if RH family
+      debug: 
+        msg: "this is redhat system"
+      when: result is succeeded 
+      ignore_errors: True
+
+    - name: check if NOT RH family
+      debug: 
+        msg: "this is NOT redhat system"
+      when: result is failed
+      ignore_errors: True
+
+    - name: show OS version
+      command: file /etc/redhat-release
+      register: result
+      ignore_errors: True
+
+    - name: check if this is ubuntu system
+      debug: 
+        msg: "this is ubuntu system"
+      when: result is succeeded
+      ignore_errors: True
+
+    - name: check if this is NOT ubuntu system
+      debug: 
+        msg: "this is NOT ubuntu system"
+      when: result is failed
+      ignore_errors: True
+
+    - name: which package manager we will use
+      debug: 
+        msg: "we will use YUM"
+      when: 
+        - ansible_facts['distribution'] == "CentOS"
+      ignore_errors: True

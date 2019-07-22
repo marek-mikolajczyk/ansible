@@ -1,0 +1,36 @@
+### ansible-playbook register_conditional_4.yml -e 'attack=yes'
+
+
+
+- name: learn more about vars
+  hosts: learnansible
+  gather_facts: False
+  vars:
+    now: true
+  tasks:
+    - name: we attack
+      debug:
+        msg: "Chaaarge"
+      when: 
+        - attack is defined
+      ignore_errors: True
+
+- name: learn more about vars 
+  hosts: learnansible
+  gather_facts: False
+  vars:
+    now: false
+  tasks:
+    - name: we attack tomorrow
+      debug:
+        msg: "tomorrow we chaaarge"
+      when: 
+        - attack is defined
+        - not now  
+      ignore_errors: True
+
+    - name: we NOT attack
+      debug:
+        msg: "Save your lives!"
+      when: attack is undefined
+      ignore_errors: True
