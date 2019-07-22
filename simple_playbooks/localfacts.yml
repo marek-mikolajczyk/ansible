@@ -1,0 +1,13 @@
+---
+- name: set local facts
+  hosts: learnansible
+  tasks:
+    - name: set on host
+      file: 
+        state: directory 
+        recurse: yes 
+        path: /etc/ansible/facts.d
+    - name: install custom facts
+      copy: src=role.fact dest=/etc/ansible/facts.d
+    - name: re-read facts after adding custom fact
+      setup: filter=ansible_local

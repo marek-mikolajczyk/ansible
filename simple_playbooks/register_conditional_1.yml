@@ -1,0 +1,28 @@
+---
+- name: registering example
+  hosts: learnansible
+  tasks:
+    - name: 1
+      shell: getenforce
+      register: selinuxoutput
+      ignore_errors: True
+
+    - name: show variable
+      debug:
+        msg: "{{ selinuxoutput['stdout'] }}"
+
+    - name: show result
+      debug: 
+        msg: "OS is secured by SELINUX"
+      when: selinuxoutput['stdout'] == "Enforcing"
+
+    - name: show result 
+      debug: 
+        msg: "OS is not secured by SELINUX but registers events"
+      when: selinuxoutput['stdout'] == "Permissive"
+
+
+    - name: show result 
+      debug:
+        msg: "OS is not secured by SELINUX because is disabled"
+      when: selinuxoutput['stdout'] == "Disabled"

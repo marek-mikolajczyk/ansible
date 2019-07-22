@@ -1,0 +1,32 @@
+---
+- name: registering example
+  hosts: learnansible
+  tasks:
+    - name: 1
+      shell: getenforce
+      register: selinuxoutput
+      ignore_errors: True
+
+    - name: show variable
+      debug:
+        msg: "{{ selinuxoutput['stdout'] }}"
+
+    - name: show result
+      debug: 
+        msg: "OS protection is active by SELINUX"
+      when: selinuxoutput['stdout'] == "Enforcing"
+
+    - name: show result - 1st version
+      debug: 
+        msg: "OS protection is not active by SELINUX"
+      when: selinuxoutput['stdout'] == "Permissive" or
+            selinuxoutput['stdout'] == "Disabled" 
+
+
+    - name: show result - 2nd version
+      debug: 
+        msg: "OS protection is not active by SELINUX"
+      when: 
+        - selinuxoutput['stdout'] == "Permissive" 
+        - selinuxoutput['stdout'] == "Disabled" 
+
