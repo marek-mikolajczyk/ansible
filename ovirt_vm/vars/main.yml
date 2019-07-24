@@ -1,6 +1,7 @@
-vm_name: dockermanager.marekexample.com
+vm_name: learnansible2.marekexample.com
 mem_standard: 2
 cpu_cores: 1
-template: v1809_template
-ip_addr: 192.168.0.32
+template: t_ubuntu_18
+#template: t_centos7
+ip_addr: 192.168.0.33
 rootpw: redhat01
