@@ -1,0 +1,14 @@
+### ansible-playbook -i inventory/ovirt4.py simple_playbooks/conditionals_1.yml
+- name: 1
+  hosts: tag_ubuntu
+  remote_user: ubuntu
+  tasks:
+     - name: check uptime using default cloud image user UBUNTU
+       shell: uptime
+
+- name: 2
+  hosts: tag_redhat
+  remote_user: centos
+  tasks:
+     - name: check uptime using default cloud image user REDHAT
+       shell: uptime

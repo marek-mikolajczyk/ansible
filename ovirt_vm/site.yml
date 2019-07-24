@@ -1,4 +1,4 @@
-- hosts: green
+- hosts: green.marekexample.com
   gather_facts: false
   tasks:
     - import_role:

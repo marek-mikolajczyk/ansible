@@ -1,17 +1,12 @@
 ---
-# tasks file for nfs_server
+- include_vars: ovirt_ubuntu.yml
+  when: 
+    - template == "t_ubuntu_18"
 
-##- name: 1
-##  import_tasks: install_package.yml 
-
-#- name: 2
-#  import_tasks: firewall_rules.yml
-
-#- name: 3
-#  import_tasks: configure_service.yml
-
-#- name: 4
-#  import_tasks: enable_service.yml
+- include_vars: ovirt_redhat.yml
+  when: 
+    - template == "t_centos_6"
+    - template == "t_centos_7"
 
 - name: 5
   import_tasks: create_vm.yml
