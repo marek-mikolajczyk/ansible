@@ -1,0 +1,24 @@
+clouds:
+  openstack:
+    auth:
+      #auth_url: https://192.168.0.21:35357/
+      #auth_url: http://192.168.0.21:35357/
+      auth_url: http://192.168.0.21:5000
+      username: admin
+      project_name: admin
+      password: aebf1e532bc147a2
+      user_domain_name: Default
+      project_domain_name: Default
+    region_name: RegionOne
+
+  internal:
+    auth:
+      #auth_url: https://192.168.0.21:35357/
+      #auth_url: http://192.168.0.21:35357/
+      auth_url: http://192.168.0.21:5000
+      username: internal
+      project_name: internal
+      password: internal
+      user_domain_name: Default
+      project_domain_name: Default
+    region_name: RegionOne
