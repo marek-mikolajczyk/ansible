@@ -2,5 +2,5 @@
 mem_standard: 2
 cpu_cores: 1
 #template: t_ubuntu_18
-ip_addr: 192.168.0.33
+#ip_addr: 192.168.0.33
 rootpw: redhat01

@@ -2,14 +2,22 @@
 - name: include ovirt password
   no_log: true
   include_vars: ovirt_password.yml
+
+
 - name: auth in engine
   block:
+
 
        - name: Obtain SSO token with using username/password credentials
          ovirt_auth:
            url: https://engine.marekexample.com/ovirt-engine/api
            username: admin@internal
            password: "{{ ovirt_password }}"
+
+
+       - name: test vars
+         debug:
+            msg: " template is {{ template }} and nic_name is {{ nic_name }}"
 
        - name: Run VM with cloud init, with multiple network interfaces
          ovirt_vm:

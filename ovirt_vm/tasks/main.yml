@@ -1,13 +1,4 @@
 ---
-- include_vars: ovirt_ubuntu.yml
-  when: 
-    - template == "t_ubuntu_18"
-
-- include_vars: ovirt_redhat.yml
-  when: 
-    - template == "t_centos_6"
-    - template == "t_centos_7"
-
 - name: 5
   import_tasks: create_vm.yml
 
