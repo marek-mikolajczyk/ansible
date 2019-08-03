@@ -2,9 +2,10 @@
   yum:
     name: "{{ item }}"
     state: present
-  with_items:
+  loop:
     - wget
     - net-tools
     - tcpdump
+    - telnet
   tags:
     - packages

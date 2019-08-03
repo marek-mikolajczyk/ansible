@@ -1,47 +1,33 @@
 ---
 ### ubuntu
-- name: Set authorized key for user ubuntu copying it from current user
+- name: Set authorized key for user ubuntu 
   remote_user: ubuntu
   become: true
   authorized_key:
     user: root
     state: present
-    key: "{{ lookup('file', lookup('env','HOME') + '/.ssh/id_rsa.pub') }}"
-    #  when: ansible_distribution == "Ubuntu"
-    #when: ansible_distribution == "Ubuntu"
+    key: "{{ item }}"
   when: "'tag_ubuntu' in group_names"
+  loop: "{{ ssh_keys_root }}"
 
 
-- name: Set authorized key for user ubuntu copying it from current user
-  remote_user: ubuntu
-  become: true
-  authorized_key:
-    user: root
-    state: present
-    key: "{{ lookup('file', lookup('env','HOME') + '/.ssh/id_rsa_ubuntu.pub') }}"
-    #when: ansible_distribution == "Ubuntu"
-  when: "'tag_ubuntu' in group_names"
-
-
- 
 ### centos
-- name: Set authorized key for user ubuntu copying it from current user
+- name: Set authorized key for user centos
   remote_user: centos
   become: true
   authorized_key:
     user: root
     state: present
-    key: "{{ lookup('file', lookup('env','HOME') + '/.ssh/id_rsa.pub') }}"
-    #when: ansible_distribution ==  "CentOS"
+    key: "{{ item }}"
   when: "'tag_centos' in group_names"
+  loop: "{{ ssh_keys_root }}"
 
-
-- name: Set authorized key for user ubuntu copying it from current user
-  remote_user: centos
-  become: true
+### direct root with password
+- name: Set authorized key for user root
+  remote_user: root
   authorized_key:
     user: root
     state: present
-    key: "{{ lookup('file', lookup('env','HOME') + '/.ssh/id_rsa_ubuntu.pub') }}"
-    #when: ansible_distribution ==  "CentOS"
+    key: "{{ item }}"
   when: "'tag_centos' in group_names"
+  loop: "{{ ssh_keys_root }}"
