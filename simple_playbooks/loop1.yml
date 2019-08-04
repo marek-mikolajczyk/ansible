@@ -1,0 +1,14 @@
+- hosts: all
+  gather_facts: true
+  tasks:
+  - name: create 2 groups
+    group:
+      name: "{{ item.name }}"
+      gid: "{{ item.groupid }}"
+      state: present
+    loop:
+      - name: devops
+        groupid: 5001
+      - name: auditors
+        groupid: 5002
+  
