@@ -1,0 +1,19 @@
+- hosts: all
+  tasks:
+     - name: install apache
+       yum:
+          name: httpd
+          state: present
+     - name: update index page
+       copy:
+         src: /tmp/index.html
+         dest: /var/www/html/index.html
+       notify: 
+         - configuration changed
+
+
+  handlers:
+   - name: configuration changed
+     systemd:
+       name: httpd
+       state: restarted
