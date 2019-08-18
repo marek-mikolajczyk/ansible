@@ -1,0 +1,32 @@
+- hosts: learnansible.marekexample.com
+  gather_facts: false
+  vars:
+    users:
+      - zosia
+      - tola
+      - ania    
+  tasks:
+    - name: delete old users
+      user: 
+         name:  "{{ item }}"
+         state: absent
+         remove: yes
+      loop: "{{ users }}"
+  
+    - name: create new users
+      user: 
+         name:  "{{ item }}"
+         state: present
+         generate_ssh_key: true
+      loop: "{{ users }}" 
+      register: myresult
+
+    - name: show variable
+      debug:
+        var: myresult['results']
+
+    - name: show output from previous task
+      debug:
+        msg: "stdout is {{ item.stdout }}"
+      loop: myresult['results']['home']
+### to be finished - showing key for each user

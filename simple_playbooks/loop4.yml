@@ -1,0 +1,103 @@
+### simple loops, loop from variables
+- hosts: learnansible.marekexample.com
+  gather_facts: false
+  vars:
+     files_to_create_tmp:
+       - /tmp/123
+       - /tmp/456
+  tasks:
+    - name: cleanup
+      file:
+        path: "{{ item }}"
+        state: absent
+      loop:
+        - /tmp/123
+        - /tmp/456
+        - /root/test123
+        - /root/test456
+
+    - name: cleanup 2
+      user:
+        name: "{{ item }}"
+        state: absent 
+        remove: yes
+      loop:
+        - ania
+        - maciek
+        - jola
+
+    - name: create few files
+      command: touch "{{ item }}" 
+      loop:
+         - /root/test123
+         - /root/test456 
+
+    - name: create few files 2
+      command: touch "{{ item }}" 
+      loop:   "{{ files_to_create_tmp }}"
+
+
+### list from dictionary
+
+    - name: add user
+      user: 
+        name: "{{ item.username }}"
+        uid: "{{ item.userid }}"
+        generate_ssh_key: "{{ item.ssh_key_gen }}"
+      loop:
+        - username: ania
+          userid: 2001
+          ssh_key_gen: yes
+        - username: maciek
+          userid: 2002
+          ssh_key_gen: yes
+        - username: jola
+          userid: 2003
+          ssh_key_gen: no
+      register: user_creation
+
+    - name: add user with ssh key
+      user:
+       name: zenek
+       generate_ssh_key: no
+
+### registering variables
+
+
+    - name: show result
+      debug:
+        var: user_creation
+
+    - name: show detailed result
+      debug:
+        msg:  "{{ item.name }} has key {{ item.ssh_public_key }}"
+      loop: "{{ user_creation['results'] }}"
+      ignore_errors: true
+
+### conditionals
+    - name: check if will distribute ssh key
+      debug:
+        msg: "will distribute ssh key for user {{ item.name }} "
+      loop: "{{ user_creation['results'] }}"
+      when: item.ssh_public_key is defined
+      ignore_errors: true
+
+
+    - name: check if will NOT distribute ssh key
+      debug:
+        msg: "will NOT distribute ssh key for user {{ item.name }} "
+      loop: "{{ user_creation['results'] }}"
+      when: item.ssh_public_key is not defined
+      ignore_errors: true
+
+    - name: asignment to group IT
+      debug:
+        msg: "will assign user {{ item.name }} to group IT "
+      when: item.uid <= 2002
+      loop: "{{ user_creation['results'] }}"
+
+    - name: asignment to group MANAGERS
+      debug:
+        msg: "will assign user {{ item.name }} to group MANAGERS"
+      when: item.uid > 2002
+      loop: "{{ user_creation['results'] }}"

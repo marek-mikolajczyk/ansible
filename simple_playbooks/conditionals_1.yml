@@ -19,3 +19,21 @@
        debug:
           msg: "{{ os_type }}"
 
+
+
+- name: 3
+  hosts: all
+  tasks:           
+  - name: show free mb
+    debug:
+      var: "{{ ansible_facts['memfree_mb'] }}"
+  
+  - name: inform that host is capable when free mem is > than 100MB
+    debug:
+       msg: "host is capable to run webserver"
+    when: ansible_memfree_mb > 900
+
+  - name: inform that host is NOT capable when free mem is > than 100MB
+    debug:
+       msg: "host is NOT capable to run webserver"
+    when: ansible_memfree_mb < 900

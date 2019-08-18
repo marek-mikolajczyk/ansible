@@ -1,0 +1,19 @@
+- hosts: all
+  gather_facts: false
+  vars:
+    user_list:
+      - zosia
+      - tola
+  tasks:
+    - name: loop training
+      command: echo "{{ item }}"
+      loop:
+        - test123
+        - test456
+    
+    - name: loop training 2
+      user: 
+         name:  "{{ item }}"
+         state: present
+      loop: "{{ user_list }}"
+    

@@ -1,0 +1,5 @@
+- hosts: irmc.marekexample.com
+  gather_facts: false
+  tasks:
+    - name: start server
+      command: ipmitool -H 192.168.0.7 -U admin -P admin chassis power on
