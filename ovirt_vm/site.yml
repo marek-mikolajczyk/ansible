@@ -18,4 +18,13 @@
         msg: "template is {{ template }} and nic_name is {{ nic_name }}"
 
     - import_role:
-        name: ovirt_vm
+       name: ovirt_vm
+
+    - import_role:
+        name: ovirt_tag
+
+    - import_role:
+         name: ovirt_refresh
+
+    - import_role:
+        name: ovirt_ssh_keys

@@ -1,5 +1,5 @@
 - hosts: all
-  gather_facts: True
+  gather_facts: False
   vars:
      ssh_keys_root:
       - "{{ lookup('file', lookup('env','HOME') + '/.ssh/id_rsa.pub') }}"

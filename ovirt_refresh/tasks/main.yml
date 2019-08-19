@@ -1,6 +1,2 @@
----
-- name: 5
-  import_tasks: create_vm.yml
-
 - name: refresh inventory
   meta: refresh_inventory

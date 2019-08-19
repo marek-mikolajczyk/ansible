@@ -31,27 +31,27 @@
            memory_guaranteed: "{{ mem_standard }}GiB"
            cpu_cores: "{{ cpu_cores}}"
            high_availability: true
-           cloud_init_persist: false
+           cloud_init_persist: False
            cloud_init:
-             nic_name: "{{ nic_name }}"
-             nic_boot_protocol: static
+             nic_boot_protocol: "static"
              nic_ip_address: "{{ ip_addr }}"
              nic_netmask: 255.255.255.0
              nic_gateway: 192.168.0.1
+             nic_name: "{{ nic_name }}"
              nic_on_boot: true
              dns_servers: 192.168.0.212 192.168.0.1
              dns_search: marekexample.com
-             custom_script: |
-               write_files:
-                - content: |
-                  Hello, world!
-                  path: /etc/cloud/cloud-init.disabled
-                  permissions: '0644'
-                - content: |
-                    network: {config: disabled} 
-                  path: /etc/cloud/cloud.cfg.d/99-disable-network-config.cfg 
-                  permissions: '0700'
              host_name: "{{ vm_name }}"
+#             custom_script: |
+#               write_files:
+#                - content: |
+#                  Hello, world!
+#                  path: /etc/cloud/cloud-init.disabled
+#                  permissions: '0644'
+#                - content: |
+#                    network: {config: disabled} 
+#                  path: /etc/cloud/cloud.cfg.d/99-disable-network-config.cfg 
+#                  permissions: '0700'
              authorized_ssh_keys: "{{ lookup('file', 'sshkeys') }}"
              user_name: root
              root_password:  redhat01
@@ -63,12 +63,9 @@
            wait: true
            operating_system: other_linux
            serial_console: true
-           cloud_init_nics:
-           - nic_name: "{{ nic_name }}"
+#           cloud_init_nics:
+#           - nic_name: "{{ nic_name }}"
 
-             #       - name: wait admin to manually start server (obirt bug)
-             #pause:
-             #seconds: 120 
 
   always:
       - name: Always revoke the SSO token

@@ -1,0 +1,46 @@
+---
+# tasks file for ovirt_tag
+- name: refresh ovirt inventory
+  meta: refresh_inventory
+
+- name: show template value
+  debug:
+     msg: " template is {{ template }} and vm_name is {{ vm_name }}"
+- name: include ovirt password
+  no_log: true
+  include_vars: ovirt_password.yml
+
+- name: auth in engine
+  block:
+
+
+       - name: Obtain SSO token with using username/password credentials
+         ovirt_auth:
+           url: https://engine.marekexample.com/ovirt-engine/api
+           username: admin@internal
+           password: "{{ ovirt_password }}"
+
+
+       - name: add tags
+         ovirt_tag:
+            auth: "{{ ovirt_auth }}"
+            name: centos
+            state: attached
+            vms:
+              - "{{ vm_name }}"
+         when: template == "t_centos_7"
+        
+       - name: add tags
+         ovirt_tag:
+            auth: "{{ ovirt_auth }}"
+            name: ubuntu
+            state: attached
+            vms:
+              - "{{ vm_name }}"
+         when: template == "t_ubuntu_18" 
+        
+  always:
+      - name: Always revoke the SSO token
+        ovirt_auth:
+          state: absent
+          ovirt_auth: "{{ ovirt_auth }}"
