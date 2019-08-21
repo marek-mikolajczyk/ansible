@@ -1,0 +1,38 @@
+### https://linuxize.com/post/how-to-install-jenkins-on-centos-7/
+- name: install java
+  yum:
+     name: java-1.8.0-openjdk-devel
+     state: present
+
+- name: download jenkins repo
+  get_url:
+    url: http://pkg.jenkins-ci.org/redhat-stable/jenkins.repo
+    dest: /etc/yum.repos.d/jenkins.repo
+
+- name: add repo GPG key
+  rpm_key:
+    state: present
+    key: https://jenkins-ci.org/redhat/jenkins-ci.org.key
+
+- name: install Jenkins package
+  yum:
+    name: jenkins
+    state: present
+
+- name: start Jenkins service
+  systemd:
+     name: jenkins
+     state: started
+     enabled: yes
+
+- name: add firewall rule for Jenkins
+  firewalld:
+    port: "{{ jenkins_port }}"
+    permanent: yes
+    state: enabled
+
+- name: show installation password
+  debug:
+     var: item
+  loop:
+    - "/var/lib/jenkins/secrets/initialAdminPassword"

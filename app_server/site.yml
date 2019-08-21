@@ -1,0 +1,4 @@
+- hosts: apps.marekexample.com
+  gather_facts: False
+  roles:
+    - role: app_server
