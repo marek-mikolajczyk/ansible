@@ -11,20 +11,37 @@
       yum:
         name: cloud-init
         state: absent
+      when: "'tag_centos' in group_names"
   
     - name: cloud-init fix 2
       template:
-        src: ovirt_vm/templates/nic.j2
+        src: ovirt_vm/templates/nic_redhat.j2
         dest: /etc/sysconfig/network-scripts/ifcfg-eth0
         owner: root
         group: root
         mode: '0644'
+      when: "'tag_centos' in group_names"
   
-- hosts: "{{ vm_name }}"
-  gather_facts: False
-  vars:
-    ssh_keys_root:
-      - "{{ lookup('file', lookup('env','HOME') + '/.ssh/id_rsa.pub') }}"
-      - "{{ lookup('file', lookup('env','HOME') + '/.ssh/id_rsa_ubuntu.pub') }}"
-  roles:
-    - role: ovirt_ssh_keys
+    - name: cloud-init fix 1
+      apt:
+        name: cloud-init
+        state: absent
+      when: "'tag_ubuntu' in group_names"
+  
+    - name: cloud-init fix 2
+      template:
+        src: ovirt_vm/templates/nic_ubuntu.j2
+        dest: /etc/network/interfaces
+        owner: root
+        group: root
+        mode: '0644'
+      when: "'tag_ubuntu' in group_names"
+
+#- hosts: "{{ vm_name }}"
+#  gather_facts: False
+#  vars:
+#    ssh_keys_root:
+#      - "{{ lookup('file', lookup('env','HOME') + '/.ssh/id_rsa.pub') }}"
+#      - "{{ lookup('file', lookup('env','HOME') + '/.ssh/id_rsa_ubuntu.pub') }}"
+#  roles:
+#    - role: ovirt_ssh_keys

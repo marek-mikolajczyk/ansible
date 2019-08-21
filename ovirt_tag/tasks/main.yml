@@ -27,7 +27,9 @@
             state: attached
             vms:
               - "{{ vm_name }}"
-         when: template == "t_centos_7"
+         when: 
+           - template == "t_centos_7" or
+           - template == "t_centos_6" 
         
        - name: add tags
          ovirt_tag:
@@ -36,7 +38,9 @@
             state: attached
             vms:
               - "{{ vm_name }}"
-         when: template == "t_ubuntu_18" 
+         when: 
+           - template == "t_ubuntu_18"  or 
+           - template == "t_ubuntu_16"
         
   always:
       - name: Always revoke the SSO token
