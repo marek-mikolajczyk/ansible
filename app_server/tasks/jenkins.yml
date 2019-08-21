@@ -30,9 +30,13 @@
     port: "{{ jenkins_port }}"
     permanent: yes
     state: enabled
+    immediate: yes
+  ignore_errors: True
+
+- name: get installation password
+  command: "cat /var/lib/jenkins/secrets/initialAdminPassword"
+  register: jenkins_password
 
 - name: show installation password
   debug:
-     var: item
-  loop:
-    - "/var/lib/jenkins/secrets/initialAdminPassword"
+     msg: "{{ jenkins_password.stdout }}"

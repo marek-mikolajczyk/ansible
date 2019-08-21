@@ -1,4 +1,25 @@
 ---
+- name: install firewalld
+  yum:
+    name: firewalld
+    state: present
+- name: enable firewalld
+  systemd:
+    name: firewalld
+    state: restarted
+    enabled: true
+- name: check if firewalld is running
+  service_facts:
+
+          #- debug:
+          #    var: ansible_facts.services
+
+- name: install prerequis
+  yum:
+    name: python-firewall
+    state: present
+  ignore_errors: True
+
 # tasks file for app_server
 - name: Jenkins
   import_tasks: jenkins.yml

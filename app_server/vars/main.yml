@@ -1,3 +1,4 @@
 ---
 # vars file for app_server
-jenkins_port: 8080
+jenkins_port: '8080/tcp'
+#jenkins_password: "{{ lookup('file', '/var/lib/jenkins/secrets/initialAdminPassword') }}"
