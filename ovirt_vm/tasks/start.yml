@@ -1,4 +1,0 @@
-- name: start vm
-  ovirt_vms:
-    state: running
-    name: "{{ vmname }}"

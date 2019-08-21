@@ -4,8 +4,4 @@
      ssh_keys_root:
       - "{{ lookup('file', lookup('env','HOME') + '/.ssh/id_rsa.pub') }}"
       - "{{ lookup('file', lookup('env','HOME') + '/.ssh/id_rsa_ubuntu.pub') }}"
-  tasks:
-
-    - import_role:
-        name: ovirt_ssh_keys
 

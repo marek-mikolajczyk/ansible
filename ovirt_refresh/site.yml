@@ -1,5 +1,0 @@
-- hosts: green.marekexample.com
-  gather_facts: False
-  tasks:
-    import_role:
-      name: ovirt_refresh

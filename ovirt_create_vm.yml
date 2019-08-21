@@ -1,0 +1,14 @@
+- hosts: green.marekexample.com
+  gather_facts: false
+  roles:
+    - role: ovirt_vm
+    - role: ovirt_tag
+
+- hosts: "{{ vm_name }}"
+  gather_facts: False
+  vars:
+    ssh_keys_root:
+      - "{{ lookup('file', lookup('env','HOME') + '/.ssh/id_rsa.pub') }}"
+      - "{{ lookup('file', lookup('env','HOME') + '/.ssh/id_rsa_ubuntu.pub') }}"
+  roles:
+    - role: ovirt_ssh_keys

@@ -1,30 +1,6 @@
 - hosts: green.marekexample.com
   gather_facts: false
-  tasks:
-    - name: include per distribution variables
-      include_vars: 
-        file: ovirt_ubuntu.yml
-      when:
-       - template == 't_ubuntu_18'
+  #  tasks:
+  #    - import_role:
+  #       name: ovirt_vm
 
-    - name: include per distribution variables
-      include_vars: 
-        file: ovirt_redhat.yml
-      when:
-        - template == 't_centos_6' or template == 't_centos_7'
-
-    - name: display vars
-      debug:
-        msg: "template is {{ template }} and nic_name is {{ nic_name }}"
-
-    - import_role:
-       name: ovirt_vm
-
-    - import_role:
-        name: ovirt_tag
-
-    - import_role:
-         name: ovirt_refresh
-
-    - import_role:
-        name: ovirt_ssh_keys

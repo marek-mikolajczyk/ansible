@@ -1,2 +1,38 @@
-- name: configure service
-  import_tasks: configure_service.yml
+---
+- name: refresh inventory
+  meta: refresh_inventory
+- name: show variable
+  debug:
+    var: "{{ ssh_keys_root }}"
+### ubuntu
+- name: Set authorized key for user ubuntu 
+  remote_user: ubuntu
+  become: true
+  authorized_key:
+    user: root
+    state: present
+    key: "{{ item }}"
+  when: "'tag_ubuntu' in group_names"
+  loop: "{{ ssh_keys_root }}"
+
+
+### centos
+- name: Set authorized key for user centos
+  remote_user: centos
+  become: true
+  authorized_key:
+    user: root
+    state: present
+    key: "{{ item }}"
+  when: "'tag_centos' in group_names"
+  loop: "{{ ssh_keys_root }}"
+
+### direct root with password
+- name: Set authorized key for user root
+  remote_user: root
+  authorized_key:
+    user: root
+    state: present
+    key: "{{ item }}"
+  when: "'tag_centos' in group_names"
+  loop: "{{ ssh_keys_root }}"

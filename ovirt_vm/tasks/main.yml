@@ -1,5 +1,17 @@
 ---
-- name: 5
+- name: include per distribution variables
+  include_vars:
+    file: ovirt_ubuntu.yml
+  when:
+   - template == 't_ubuntu_18'
+
+- name: include per distribution variables
+  include_vars:
+    file: ovirt_redhat.yml
+  when:
+    - template == 't_centos_6' or template == 't_centos_7'
+
+- name: create vm
   import_tasks: create_vm.yml
 
 - name: refresh inventory

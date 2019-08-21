@@ -1,6 +1,5 @@
 ---
-# tasks file for ovirt_tag
-- name: refresh ovirt inventory
+- name: use meta
   meta: refresh_inventory
 
 - name: show template value
