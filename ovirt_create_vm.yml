@@ -1,3 +1,4 @@
+### ansible-playbook -i inventory/ovirt ovirt_create_vm.yml -e "vm_name=learnansible1.marekexample.com" --vault-password-file=/root/vault.pass -e 'ip_addr=192.168.0.31' -e 'template=t_ubuntu_18'
 - hosts: green.marekexample.com
   gather_facts: false
   roles:
@@ -46,4 +47,7 @@
 #  roles:
 #    - role: ovirt_ssh_keys
 #
-    - import_tasks: ovirt_agent.yml
+- hosts: "{{ vm_name }}"
+  gather_facts: False
+  roles:
+    - role: ovirt_agent
