@@ -1,35 +1,38 @@
-  - block:
-
-      - name: install repo
-
-        yum:
-           name: epel-release
-           state: present
-
-      - name: install agent
-        yum:
-           name: ovirt-guest-agent-common
-           state: present
-      - name: start agent service
-        systemd:
-            name: ovirt-guest-agent
-            state: started
-            enabled: yes
+- name: install ovirt guest tools
+  hosts: all
+  tasks:
+    - block:
   
-    when: "'tag_centos' in group_names"
-
-
-  - block:
-
-      - name: install repo
-        apt:
-           name: ovirt-guest-agent
-           state: present
-           update_cache: yes
-      - name: start agent service
-        systemd:
-            name: qemu-guest-agent
-            state: started
-            enabled: yes
-
-    when: "'tag_ubuntu' in group_names"
+        - name: install repo
+  
+          yum:
+             name: epel-release
+             state: present
+  
+        - name: install agent
+          yum:
+             name: ovirt-guest-agent-common
+             state: present
+        - name: start agent service
+          systemd:
+              name: ovirt-guest-agent
+              state: started
+              enabled: yes
+    
+      when: "'tag_centos' in group_names"
+  
+  
+    - block:
+  
+        - name: install repo
+          apt:
+             name: ovirt-guest-agent
+             state: present
+             update_cache: yes
+        - name: start agent service
+          systemd:
+              name: qemu-guest-agent
+              state: started
+              enabled: yes
+  
+      when: "'tag_ubuntu' in group_names"
