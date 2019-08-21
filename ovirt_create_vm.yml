@@ -45,3 +45,5 @@
 #      - "{{ lookup('file', lookup('env','HOME') + '/.ssh/id_rsa_ubuntu.pub') }}"
 #  roles:
 #    - role: ovirt_ssh_keys
+#
+    - import_tasks: ovirt_agent.yml
