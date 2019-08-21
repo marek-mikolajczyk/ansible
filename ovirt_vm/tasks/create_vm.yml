@@ -31,7 +31,7 @@
            memory_guaranteed: "{{ mem_standard }}GiB"
            cpu_cores: "{{ cpu_cores}}"
            high_availability: true
-           cloud_init_persist: False
+           cloud_init_persist: True
            cloud_init:
              nic_boot_protocol: "static"
              nic_ip_address: "{{ ip_addr }}"

@@ -6,6 +6,22 @@
 
 - hosts: "{{ vm_name }}"
   gather_facts: False
+  tasks:
+    - name: cloud-init fix 1
+      yum:
+        name: cloud-init
+        state: absent
+  
+    - name: cloud-init fix 2
+      template:
+        src: ovirt_vm/templates/nic.j2
+        dest: /etc/sysconfig/network-scripts/ifcfg-eth0
+        owner: root
+        group: root
+        mode: '0644'
+  
+- hosts: "{{ vm_name }}"
+  gather_facts: False
   vars:
     ssh_keys_root:
       - "{{ lookup('file', lookup('env','HOME') + '/.ssh/id_rsa.pub') }}"
