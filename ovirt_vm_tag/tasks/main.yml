@@ -28,7 +28,7 @@
             vms:
               - "{{ vm_name }}"
          when: 
-           - "template == 't_centos_7'  or template == 't_centos_6' or ansible_distribution == 'Centos'" 
+           - "template == 't_centos_7'  or template == 't_centos_6'"
         
        - name: add tags
          ovirt_tag:
@@ -38,7 +38,7 @@
             vms:
               - "{{ vm_name }}"
          when: 
-           - "template == 't_ubuntu_18'  or template == 't_ubuntu_16' or ansible_distribution == 'Ubuntu'"
+           - "template == 't_ubuntu_18'  or template == 't_ubuntu_16'"
         
   always:
       - name: Always revoke the SSO token

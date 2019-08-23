@@ -1,0 +1,48 @@
+- name: install db
+  yum:
+    name: [ 'mariadb',  'mariadb-server', 'firewalld', 'MySQL-python' ]
+    state: present
+
+- name: start db and firewalld
+  systemd:
+    name: "{{ item }}"
+    state: started
+    enabled: yes
+  loop:
+    - firewalld
+    - mariadb
+
+- name: db firewall
+  firewalld:
+    service: mysql
+    permanent: yes
+    state: enabled
+    immediate: yes
+
+- name: set db root password
+  copy:
+    src: .my.cnf
+    dest: /root/.my.cnf
+
+- name: create db
+  mysql_db:
+    name: wordpress
+    state: present 
+
+- name: create db user
+  mysql_user:
+    name: wordpressuser
+    password: 12345
+    priv: 'wordpress.*:ALL'
+    state: present
+    host: 'localhost'
+
+
+- name: create db user
+  mysql_user:
+    name: wordpressuser
+    password: 12345
+    priv: 'wordpress.*:ALL'
+    state: present
+    host: 'learnansible5.marekexample.com'
+

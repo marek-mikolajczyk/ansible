@@ -1,0 +1,4 @@
+- hosts: green.marekexample.com
+  gather_facts: False
+  roles:
+    - role: ovirt_vm_tag

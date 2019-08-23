@@ -1,0 +1,6 @@
+---
+# tasks file for file_modules
+- name: synchronize file
+  synchronize:
+    src: "1"
+    dest: /root/synchronize_test

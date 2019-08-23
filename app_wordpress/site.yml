@@ -1,0 +1,16 @@
+- hosts: learnansible3.marekexample.com
+  tasks:
+    - name: setup db
+      import_tasks: tasks/db.yml
+
+- hosts: learnansible5.marekexample.com
+  tasks:
+    - name: setup webserver
+      import_tasks: tasks/apache.yml
+
+- hosts: learnansible5.marekexample.com
+  vars_files:
+    - vars/main.yml
+  tasks:
+    - name: setup wordpress
+      import_tasks: tasks/wordpress.yml

@@ -1,0 +1,32 @@
+- name: remi repo
+  yum:
+    name: http://rpms.remirepo.net/enterprise/remi-release-7.rpm, yum-utils
+    state: present
+- name: edit remi
+  shell: "yum-config-manager --disable remi-php54 ; yum-config-manager --enable remi-php73"
+
+
+- name: install apache
+  yum:
+    name: httpd, firewalld, php, php-common, php-mysql, php-gd, php-xml, php-mbstring, php-mcrypt
+    state: present
+  
+
+- name: start service
+  systemd:
+    name: "{{ item }}"
+    state: restarted
+    enabled: yes
+  loop:
+    - httpd
+    - firewalld
+
+- name: apache firewall
+  firewalld:
+    service: "{{ item }}"
+    immediate: yes
+    permanent: yes
+    state: enabled
+  loop:
+    - http
+    - https

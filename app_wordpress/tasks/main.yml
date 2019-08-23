@@ -1,0 +1,4 @@
+---
+# tasks file for app_wordpress
+- name: setup db
+  import_tasks: db.yml

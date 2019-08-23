@@ -1,0 +1,8 @@
+<VirtualHost *:81>
+  ServerAdmin root@localhost
+  DocumentRoot /var/www/html/wordpress
+  ServerName app.marekexample.com
+  ServerAlias wordpress.app.marekexample.com
+  ErrorLog /var/log/httpd/wordpress-error-log
+  CustomLog /var/log/httpd/wordpress-acces-log common
+</VirtualHost>

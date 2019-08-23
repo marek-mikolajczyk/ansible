@@ -1,0 +1,17 @@
+- hosts: all
+  gather_facts: False
+  tasks:
+    - name: create test dir structure with files
+      file:
+        path: /tmp/123/567/890
+        state: directory
+        recurse: yes
+    
+    - name: check if dir was created
+      stat: 
+        path: /tmp/123/567/890
+      register: output
+
+    - name: show output
+      debug:
+        var: output

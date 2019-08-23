@@ -1,0 +1,60 @@
+- name: download wordpress package
+  get_url:
+    url: http://wordpress.org/latest.tar.gz
+    dest: /tmp
+
+- name: find file to unarchive
+  find:
+    path: /tmp
+    file_type: file
+    use_regex: yes
+    patterns: 'wordpress*'
+  register: find_output
+
+- name: show find_output
+  debug:
+    msg:  "{{ item.path }}"
+  loop: "{{ find_output.files }}"
+
+- name: unarchive
+  unarchive:
+    src: "{{ item.path }}"
+    dest: /var/www/html
+    remote_src: yes
+  loop: "{{ find_output.files }}"
+
+- name: change ownership
+  file:
+    path: /var/www/html/wordpress
+    state: directory
+    owner: apache
+    group: apache
+    recurse: yes
+- name: deploy wordpress conf file
+  template:
+    src: templates/wp-config.j2
+    dest: /var/www/html/wordpress/wp-config.php
+    owner: apache
+    group: apache
+    mode: '6440'
+
+- name: adjust selinux 1
+  sefcontext:
+    target: '/var/www/html(/.*)?'
+    setype: httpd_sys_content_t
+    state: present
+
+- name: selinux 2
+  command: restorecon -irv /var/www/html
+
+- name: configure virtualhost
+  template:
+    src: templates/vhost_wordpress.j2
+    dest: /etc/httpd/conf.d/vhost_wordpress.conf
+    owner: apache
+    group: root
+
+- name: restart httpd
+  systemd:
+    name: httpd
+    state: restarted

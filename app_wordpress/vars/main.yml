@@ -1,0 +1,6 @@
+---
+# vars file for app_wordpress
+wordpress_db_name: wordpress
+wordpress_db_user: wordpressuser
+wordpress_db_user_pass: 12345
+wordpress_db_host: learnansible3.marekexample.com
