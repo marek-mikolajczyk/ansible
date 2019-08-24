@@ -28,7 +28,7 @@
            state: running
            cluster: Default
            memory: "{{ mem_standard }}GiB"
-           memory_guaranteed: "{{ mem_standard }}GiB"
+           memory_guaranteed: "512MiB"
            cpu_cores: "{{ cpu_cores}}"
            high_availability: true
            cloud_init_persist: True

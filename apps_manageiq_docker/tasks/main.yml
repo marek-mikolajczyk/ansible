@@ -1,0 +1,14 @@
+---
+# tasks file for apps_manageiq_docker
+- name: get manageiq image
+  docker_image:
+    name: manageiq/manageiq:hammer-10
+    source: pull
+
+- name: start container
+  docker_container:
+    name: manageiq
+    image: manageiq/manageiq:hammer-10
+    state: started
+    ports:
+      - "8081:443"

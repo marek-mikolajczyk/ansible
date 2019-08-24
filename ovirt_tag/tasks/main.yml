@@ -20,7 +20,7 @@
            password: "{{ ovirt_password }}"
 
 
-       - name: add tags
+       - name: add tags centos
          ovirt_tag:
             auth: "{{ ovirt_auth }}"
             name: centos
@@ -28,9 +28,10 @@
             vms:
               - "{{ vm_name }}"
          when: 
-           - "template == 't_centos_7'  or template == 't_centos_6' or ansible_distribution == 'Centos'" 
+           - "template == 't_centos_7'  or template == 't_centos_6' or ansible_distribution == 'Centos' or 'tag_centos' in group_names" 
+         ignore_errors: true
         
-       - name: add tags
+       - name: add tags ubuntu
          ovirt_tag:
             auth: "{{ ovirt_auth }}"
             name: ubuntu
@@ -38,7 +39,8 @@
             vms:
               - "{{ vm_name }}"
          when: 
-           - "template == 't_ubuntu_18'  or template == 't_ubuntu_16' or ansible_distribution == 'Ubuntu'"
+           - "template == 't_ubuntu_18'  or template == 't_ubuntu_16' or ansible_distribution == 'Ubuntu' or 'tag_ubuntu' in group_names"
+         ignore_errors: true
         
   always:
       - name: Always revoke the SSO token
