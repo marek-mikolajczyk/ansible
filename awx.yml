@@ -1,0 +1,3 @@
+- hosts: awx.marekexample.com
+  roles:
+    - role: geerlingguy.awx
