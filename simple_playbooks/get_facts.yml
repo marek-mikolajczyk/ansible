@@ -1,4 +1,5 @@
 - hosts: all
+  gather_facts: yes
   ignore_unreachable: yes
   tasks:
     - name: get facts

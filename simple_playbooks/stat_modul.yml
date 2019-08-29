@@ -1,0 +1,12 @@
+- hosts: all
+  tasks:
+    - name: stat module on /etc/passwd
+      stat:
+        path: /etc/passwd
+      
+
+    - name: stat module on /etc/passwd
+      stat:
+        path: /etc/passwd123
+      debugger: always
+      

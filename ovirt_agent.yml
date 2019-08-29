@@ -1,4 +1,5 @@
 - name: install ovirt guest tools
+  gather_facts: True
   hosts: all
   tasks:
     - block:
@@ -19,7 +20,7 @@
               state: started
               enabled: yes
     
-      when: "'tag_centos' in group_names"
+      when: "'tag_centos' in group_names or ansible_os_family == 'RedHat'"
   
   
     - block:
