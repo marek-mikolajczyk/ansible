@@ -1,4 +1,5 @@
 - name: install ovirt guest tools
+  ignore_unreachable: True
   gather_facts: True
   hosts: all
   tasks:
