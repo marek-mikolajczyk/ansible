@@ -1,0 +1,16 @@
+- hosts: status_up
+  gather_facts: false
+  serial: 
+    - 1
+    - 50%
+    - 50%
+  tasks:
+
+    - name: check uptime
+      shell: uptime
+      ignore_unreachable: true
+      register: result
+
+    - name: show result
+      debug:
+        var: result.stdout

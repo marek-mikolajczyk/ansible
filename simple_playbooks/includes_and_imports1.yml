@@ -1,0 +1,6 @@
+- name: import playbook1
+  hosts: all
+  gather_facts: false
+  tasks:
+    - name: check uptime 
+      command: uptime

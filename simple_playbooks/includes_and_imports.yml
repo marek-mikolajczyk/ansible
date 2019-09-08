@@ -1,0 +1,16 @@
+- name: start play 1
+  hosts: all
+  gather_facts: false
+  tasks:
+
+    - name: show debug
+      debug:
+        msg: "this is original task"
+
+- name: import includes_and_imports1
+  import_playbook: includes_and_imports1.yml
+
+- name: import includes_and_imports2
+  import_playbook: includes_and_imports2.yml
+
+

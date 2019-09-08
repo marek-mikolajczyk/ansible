@@ -1,0 +1,24 @@
+---
+- name: download Minikube exe
+  get_url:
+    url: "{{ item.link }}"
+    dest: "/usr/local/bin/{{ item.name }}"
+    mode: '0755'
+  loop:
+     - link: https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
+       name: minikube
+     - link: https://storage.googleapis.com/minikube/releases/latest/docker-machine-driver-kvm2 
+       name: docker-machine-driver-kvm2
+
+
+- name: add repo
+  yum_repository:
+    name: kubernetes
+    description: kubernetes
+    baseurl: https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64
+    gpgcheck: no
+
+- name: install kubernetes
+  yum:
+    name: kubectl
+    state: present

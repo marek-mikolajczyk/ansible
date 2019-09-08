@@ -1,0 +1,6 @@
+- name: imported playbook2
+  hosts: all
+  tasks:
+    
+    - name: touch 123
+      shell: touch /tmp/123
