@@ -1,0 +1,25 @@
+- name: learn conditionals
+  hosts: all
+  tasks:
+
+    - name: check if mem sufficient
+      debug:
+        var: ansible_memfree_mb
+
+    - name: check if cpu sufficient
+      debug:
+        var: ansible_processor_vcpus
+
+    - name: final candidate
+      debug:
+        msg: " {{ inventory_hostname }} is good pick"
+      when: >
+        ( ansible_memfree_mb > 8000 and ansible_processor_vcpus == 2 )
+        or
+        ( ansible_memfree_mb < 8000 and ansible_processor_vcpus > 2 )
+
+
+    - name: pick candidate with free 100mb on any fs
+      debug:
+        msg: " {{ item.mount }} has free space {{ item.size_available }}"
+      loop: "{{ ansible_mounts }}"

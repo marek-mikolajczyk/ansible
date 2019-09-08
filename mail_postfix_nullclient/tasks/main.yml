@@ -1,0 +1,30 @@
+---
+# tasks file for mail_postfix_nullclient
+- name: install postfix
+  yum:
+    name: postfix
+    state: present
+
+- name: configure postfix
+  template:
+    src: main.cf.j2
+    dest: /etc/postfix/main.cf
+
+- name: start and enable postfix
+  systemd:
+    name: postfix
+    state: restarted
+    enabled: yes
+
+- name: check if firewall is running
+  command: systemctl is-enabled firewalld
+  register: isfirewalldon
+
+- name: setup firewall
+  firewalld:
+    service: smtp
+    state: enabled
+    permanent: yes
+    immediate: yes
+  when: isfirewalldon == "enabled"
+

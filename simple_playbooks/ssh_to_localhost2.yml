@@ -1,0 +1,9 @@
+- hosts: 127.0.0.1
+  tasks:
+    - name: check uptime
+      command: uptime
+
+- hosts: 127.0.0.1
+  tasks:
+    - name: check uptime
+      command: uptime

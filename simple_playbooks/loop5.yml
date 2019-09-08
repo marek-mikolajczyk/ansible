@@ -1,0 +1,37 @@
+- name: training loops
+  gather_facts: False
+  hosts: learnansible1.marekexample.com
+  vars:
+    - users_to_install:
+      - zosia
+      - tola
+      - ania
+  tasks:
+
+    - name: package is installed
+      package:
+        name: "{{ item }}"
+        state: present
+      loop:
+        - net-tools
+        - nmap
+        - telnet
+
+
+    - name: add users
+      user:
+        name: "{{ item }}"
+        state: present
+      loop: "{{ users_to_install }}"
+
+
+    - name: Looping Echo Task
+      shell: "echo This is my item: {{ item }}"
+      loop:
+        - one
+        - two
+      register: echo_results
+
+    - name: Show echo_results variable
+      debug:
+        var: echo_results

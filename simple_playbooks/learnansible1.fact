@@ -1,0 +1,7 @@
+[packages]
+package=http
+firewalld = http
+state = present
+
+[serverroles]
+role1 = app1
