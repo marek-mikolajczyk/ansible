@@ -1,0 +1,34 @@
+- hosts: localhost
+  gather_facts: False
+  tasks:
+    - name: check if python2 is enabled
+      shell: 'python2 --version'
+      register: checkpython
+
+    - name: python OK
+      debug:
+        msg: " {{ checkpython.stderr }} installed"
+      when: checkpython.rc == 0
+
+
+    - name: install SDK
+      get_url:
+        url: https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-261.0.0-linux-x86_64.tar.gz
+        dest: /root/cloud_sdk.tar.gz
+
+    - name: extract archive
+      unarchive:
+        src: /root/cloud_sdk.tar.gz
+        dest: /root/
+
+
+    - name: run installer
+      shell: /root/google-cloud-sdk/bin/gcloud init
+
+
+    - name: add PATH 
+      replace: 
+        path: /root/.bashrc
+        regexp: ':\$PATH$'
+        replace: ':/root/google-cloud-sdk/bin:$PATH'
+        backup: yes
