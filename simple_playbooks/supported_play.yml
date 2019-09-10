@@ -1,0 +1,10 @@
+- hosts: learnansible
+  gather_facts: True
+  vars:
+    supported_os:
+        - CentOS
+        - Redhat
+  tasks:
+      - name: check if applicable
+        command: echo hurra
+        when: ansible_distribution in supported_os

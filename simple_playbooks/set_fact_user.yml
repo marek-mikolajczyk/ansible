@@ -1,0 +1,28 @@
+- hosts: learnansible
+  gather_facts: True
+  tasks:
+
+    - name: create proper users
+      set_fact:
+        username: tom
+        usercomment: tommy
+        cacheable: yes
+      when: ansible_distribution == "Ubuntu"
+
+    - name: create proper users
+      set_fact:
+        username: ann
+        usercomment: amy
+        cacheable: yes
+      when: ansible_distribution == "CentOS"
+
+    - name: debug
+      setup:
+      register: result
+
+    - name: debug2
+      debug:
+        msg: "{{ result }}"
+
+    - name: check what was created
+      command: tail -2 /etc/passwd 
