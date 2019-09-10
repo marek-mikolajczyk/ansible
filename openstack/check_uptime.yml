@@ -1,0 +1,32 @@
+- name: check Centos uptime
+  gather_facts: True
+  hosts: all
+  remote_user: centos
+  gather_facts: false
+  tasks:
+    - block:
+        - name: check centos uptime
+          shell: uptime
+          register: result
+    
+        - name: result
+          debug:
+            var: "result.stdout_lines"
+      when: "'meta-os_centos' in group_names"
+
+- name: check Ubuntu uptime
+  hosts: all
+  gather_facts: True
+  remote_user: ubuntu
+  gather_facts: false
+  tasks:
+    - block:
+        - name: check ubuntu uptime
+          shell: uptime
+          register: result
+
+        - name: result
+          debug:
+            var: "result.stdout_lines"
+      when: "'meta-os_ubuntu' in group_names"
+

@@ -1,0 +1,39 @@
+##ansible learnansible -i inventory/openstack/ -m shell -a 'grep joe /etc/passwd ' --become
+#ansible-playbook -i inventory/openstack/ simple_playbooks/os_var_array.yml --vault-id joe1@/root/joe1
+#ansible-vault  encrypt_string "DDEEFF" --vault-id joe1@/root/joe1
+
+- hosts: learnansible
+  gather_facts: False
+  vars_files:
+    - os_var_array_secret.yml
+  vars:
+    vault_annecomment: !vault |
+          $ANSIBLE_VAULT;1.2;AES256;joe1
+          30363938646632303135656331653731323861636161653761666135663361393530353761356266
+          6537393731646461306235633633616430633534623764610a316639303830323837316461633730
+          66646333653765313263616331383437353336356666373864663030323636653936633436383437
+          3333636236643636610a666639343235656435373637613830313365313064306239326537386233
+          3061
+    userlist:
+       joe:
+         username: joe
+         usercomment: "{{ vault_usercomment }}"
+       anne:
+         username: anne
+         usercomment: "{{ vault_annecomment }}"
+  become: true
+  tasks:
+    - name: create user joe
+      user:
+        name: "{{ userlist.joe.username }}"
+        comment:  "{{ userlist.joe.usercomment }}"
+
+    - name: debug
+      debug:
+        msg: " vault_annecomment is {{ vault_annecomment }}"
+
+
+    - name: create user anne
+      user:
+        name: "{{ userlist.anne.username }}"
+        comment:  "{{ userlist.anne.usercomment }}"

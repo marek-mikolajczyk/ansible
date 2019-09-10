@@ -1,0 +1,4 @@
+[meta-os_centos:vars]
+ansible_user=centos
+[meta-os_ubuntu:vars]
+ansible_user=ubuntu
