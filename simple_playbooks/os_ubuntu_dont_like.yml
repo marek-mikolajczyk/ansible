@@ -1,0 +1,7 @@
+- hosts: learnansible
+  gather_facts: True
+  tasks:
+    - name: we don't like ubuntu
+      debug:
+        msg: "im ubuntu"
+      when: ansible_distribution == 'Ubuntu'
