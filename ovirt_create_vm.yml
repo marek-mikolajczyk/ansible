@@ -49,5 +49,6 @@
 #
 - hosts: "{{ vm_name }}"
   gather_facts: False
-  roles:
-    - role: ovirt_agent
+  tasks:
+    - name: install tags
+      include_tasks:  ovirt_agent.yml

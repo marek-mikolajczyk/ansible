@@ -1,0 +1,8 @@
+- src: cloudalchemy.prometheus
+  version: "2.9.3"
+- src: cloudalchemy.grafana
+  version: "0.14.2"
+- src: https://github.com/cloudalchemy/ansible-node-exporter.git
+  scm: git
+  version: 3f85263
+  name: cloudalchemy.node-exporter
