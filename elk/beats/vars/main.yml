@@ -1,0 +1,7 @@
+---
+# vars file for beats
+beats_services:
+  - filebeat
+  - metricbeat
+  - heartbeat-elastic
+  - auditbeat

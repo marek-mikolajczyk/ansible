@@ -1,0 +1,5 @@
+---
+# tasks file for beats
+
+- name: install packages
+  import_tasks: beats_packages.yml
