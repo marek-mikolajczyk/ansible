@@ -1,0 +1,28 @@
+- name: deploy config template metricbeat
+  ansible.builtin.template:
+    src: metricbeat.j2
+    dest: /etc/metricbeat/metricbeat.yml
+    owner: root
+    group: root
+    mode: '0600'
+    backup: yes
+    validate: /usr/bin/metricbeat test config -c %s
+
+- name:  restart service
+  ansible.builtin.systemd:
+    name: metricbeat
+    state: restarted
+
+- name: enable metricbeat modules
+  shell: /usr/bin/metricbeat modules enable system
+  ignore_errors: yes
+
+- name: setup metricbeat assets
+  shell: /usr/bin/metricbeat setup
+  ignore_errors: yes
+
+- name:  restart service
+  ansible.builtin.systemd:
+    name: metricbeat
+    state: restarted
+  ignore_errors: yes

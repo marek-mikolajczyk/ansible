@@ -22,4 +22,4 @@
     state: started
     enabled: yes
     name: "{{ item }}"
-  loop: "{{ beats_services }}"
+  loop: "{{ beats_services }}" 

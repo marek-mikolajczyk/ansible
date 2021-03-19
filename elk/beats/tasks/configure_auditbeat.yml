@@ -1,0 +1,26 @@
+- name: deploy config template audit
+  ansible.builtin.template:
+    src: auditbeat.j2
+    dest: /etc/auditbeat/auditbeat.yml
+    owner: root
+    group: root
+    mode: '0600'
+    backup: yes
+    validate: /usr/bin/auditbeat test config -c %s
+
+- name:  restart service
+  ansible.builtin.systemd:
+    name: auditbeat
+    state: restarted
+
+
+
+- name: setup auditbeat assets
+  shell: /usr/bin/auditbeat setup
+  ignore_errors: yes
+
+- name:  restart service
+  ansible.builtin.systemd:
+    name: auditbeat
+    state: restarted
+  ignore_errors: yes

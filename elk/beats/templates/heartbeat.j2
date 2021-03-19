@@ -1,0 +1,29 @@
+heartbeat.config.monitors:
+  path: ${path.config}/monitors.d/*.yml
+  reload.enabled: false
+  reload.period: 5s
+heartbeat.monitors:
+  - type: icmp
+    schedule: '*/5 * * * * * *'
+    hosts: ["localhost"]
+    id: my-icmp-service
+    name: My ICMP Service
+  - type: tcp
+    schedule: '@every 30s'
+    hosts: ["localhost:22"]
+    mode: any
+    id: My SSH
+setup.template.settings:
+  index.number_of_shards: 1
+  index.codec: best_compression
+setup.ilm.overwrite: true
+setup.kibana:
+  host: "{{ kibana_ip_address }}"
+  username: "{{ elasticsearch_username }}"
+  password: "{{ elasticsearch_password }}"
+output.elasticsearch:
+  hosts: ["{{ elasticsearch_ip_address }}"]
+  username: "{{ elasticsearch_username }}"
+  password: "{{ elasticsearch_password }}"
+processors:
+  - add_observer_metadata:

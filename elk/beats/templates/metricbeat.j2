@@ -1,0 +1,31 @@
+metricbeat.modules:
+- module: system
+  metricsets:
+    - cpu             # CPU usage
+    - load            # CPU load averages
+    - memory          # Memory usage
+    - network         # Network IO
+    - process         # Per process metrics
+    - process_summary # Process summary
+    - uptime          # System Uptime
+    - socket_summary  # Socket summary
+    - users
+    - core           # Per CPU core usage
+    - diskio         # Disk IO
+    - filesystem     # File system usage for each mountpoint
+    - fsstat         # File system summary metrics
+    - socket         # Sockets and connection info (linux only)
+    - service        # systemd service information
+  enabled: true
+  period: 10s
+  processes: ['.*']
+  cpu_ticks: false
+metricbeat.config.modules:
+   path: ${path.config}/modules.d/*.yml
+setup.ilm.overwrite: true
+output.elasticsearch:
+  hosts: [ "{{ elasticsearch_ip_address }}" ]
+  username: "{{ elasticsearch_username }}"
+  password: "{{ elasticsearch_password }}"
+setup.kibana:
+  host: "{{ kibana_ip_address }}"

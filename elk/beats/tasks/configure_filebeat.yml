@@ -1,0 +1,19 @@
+- name: deploy config template
+  ansible.builtin.template:
+    src: filebeat.j2
+    dest: /etc/filebeat/filebeat.yml
+    owner: root
+    group: root
+    mode: '0600'
+    backup: yes
+    validate: /usr/bin/filebeat test config -c %s
+
+- name:  restart service
+  ansible.builtin.systemd:
+    name: filebeat
+    state: restarted
+
+
+- name: setup filebeat assets
+  shell: /usr/bin/filebeat setup 
+  ignore_errors: yes

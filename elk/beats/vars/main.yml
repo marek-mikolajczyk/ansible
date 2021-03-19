@@ -5,3 +5,22 @@ beats_services:
   - metricbeat
   - heartbeat-elastic
   - auditbeat
+
+kibana_ip_address: "192.168.0.65:5601"
+elasticsearch_ip_address: "192.168.0.65:9200"
+elasticsearch_username: "elastic"
+elasticsearch_password: "changeme"
+
+# FILEBEAT
+filebeat_input_logs:
+  - /var/log/*.log
+  - /var/log/syslog
+filebeat_modules_enabled:
+  - system 
+  - auditd
+
+# METRICBEAT
+
+# HEARTBEAT
+
+
