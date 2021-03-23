@@ -5,7 +5,9 @@
 
 - name: Update repositories cache and install "foo" package 1
   ansible.builtin.apt:
-    name: apt-transport-https
+    name: 
+      - apt-transport-https
+      - libpcap0.8
 
 - name: install repository
   ansible.builtin.apt_repository:

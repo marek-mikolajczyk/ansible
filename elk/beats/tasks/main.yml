@@ -2,15 +2,17 @@
 # tasks file for beats
 
 - name: install packages
-  import_tasks: install_beats_packages.yml
+  import_tasks: packages.yml
 
 
 - name: deploy filebeat configuration
-  import_tasks: configure_filebeat.yml
-
+  import_tasks: filebeat.yml
 
 - name: deploy metricbeat configuration
-  import_tasks: configure_metricbeat.yml
+  import_tasks: metricbeat.yml
 
 - name: deploy heartbeat configuration
-  import_tasks: configure_heartbeat.yml
+  import_tasks: heartbeat.yml
+
+- name: deploy packetbeat configuration
+  import_tasks: packetbeat.yml

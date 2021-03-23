@@ -1,0 +1,21 @@
+- name: PACKETBEAT deploy config template 
+  ansible.builtin.template:
+    src: packetbeat.j2
+    dest: /etc/packetbeat/packetbeat.yml
+    owner: root
+    group: root
+    mode: '0600'
+    backup: yes
+    validate: /usr/bin/packetbeat test config -c %s
+
+- name: PACKETBEAT setup assets
+  shell: /usr/bin/packetbeat setup
+  ignore_errors: yes
+  ignore_errors: yes
+
+- name:  PACKETBEAT restart service
+  ansible.builtin.systemd:
+    name: packetbeat
+    state: restarted
+    enabled: yes
+  ignore_errors: yes

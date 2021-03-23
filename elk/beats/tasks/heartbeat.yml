@@ -1,4 +1,4 @@
-- name: deploy config template heart
+- name: HEARTBEAT deploy config template
   ansible.builtin.template:
     src: heartbeat.j2
     dest: /etc/heartbeat/heartbeat.yml
@@ -8,19 +8,13 @@
     backup: yes
     validate: /usr/bin/heartbeat test config -c %s
 
-- name:  restart service
-  ansible.builtin.systemd:
-    name: heartbeat-elastic
-    state: restarted
-
-
-
-- name: setup heartbeat assets
+- name: HEARTBEAT setup assets
   shell: /usr/bin/heartbeat setup
   ignore_errors: yes
 
-- name:  restart service
+- name:  HEARTBEAT restart service
   ansible.builtin.systemd:
     name: heartbeat-elastic
     state: restarted
+    enabled: yes
   ignore_errors: yes
